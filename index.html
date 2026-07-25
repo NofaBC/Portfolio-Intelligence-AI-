@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Intelligence AI™ | NOFA AI Factory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0f1a;
+  --bg-secondary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-hover: #243447;
+  --border: #334155;
+  --border-light: #475569;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-purple: #8b5cf6;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow-blue: 0 0 20px rgba(59,130,246,0.15);
+  --shadow-glow-emerald: 0 0 20px rgba(16,185,129,0.15);
+  --shadow-glow-amber: 0 0 20px rgba(245,158,11,0.15);
+  --shadow-glow-red: 0 0 20px rgba(239,68,68,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
+
+/* Navbar */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,15,26,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+
+.navbar-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.brand-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; color: white;
+}
+
+.brand-text {
+  display: flex; flex-direction: column;
+}
+
+.brand-title {
+  font-size: 15px; font-weight: 700; color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.brand-sub {
+  font-size: 11px; color: var(--text-muted); font-weight: 500;
+}
+
+.nav-tabs {
+  display: flex; gap: 4px;
+}
+
+.nav-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-tab:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+.nav-tab.active { color: var(--accent-blue); background: rgba(59,130,246,0.1); }
+
+.nav-cta {
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-glow-blue); }
+
+/* Main Content */
+.main-content { padding-top: 64px; }
+
+.section { display: none; animation: fadeIn 0.4s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Hero */
+.hero {
+  padding: 80px 24px 60px;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 60%);
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  font-size: 12px; font-weight: 600;
+  color: var(--accent-blue);
+  margin-bottom: 24px;
+}
+
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-emerald);
+  animation: pulse 2s infinite;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+  background: linear-gradient(180deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 18px; color: var(--text-secondary);
+  max-width: 640px; margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  color: white;
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,0.3); }
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--border-light); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.card:hover { border-color: var(--border-light); }
+
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 15px; font-weight: 700; color: var(--text-primary);
+}
+
+.card-subtitle {
+  font-size: 12px; color: var(--text-muted); font-weight: 500;
+}
+
+/* Score Ring */
+.score-ring {
+  position: relative; width: 120px; height: 120px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.score-ring svg { position: absolute; transform: rotate(-90deg); }
+
+.score-ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+
+.score-ring-fill {
+  fill: none; stroke-width: 8; stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.score-value {
+  font-size: 28px; font-weight: 800;
+  z-index: 1;
+}
+
+.score-label {
+  font-size: 11px; color: var(--text-muted); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  z-index: 1; margin-top: 2px;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 6px;
+  font-size: 12px; font-weight: 600;
+}
+
+.badge-emerald { background: rgba(16,185,129,0.12); color: var(--accent-emerald); border: 1px solid rgba(16,185,129,0.2); }
+.badge-amber { background: rgba(245,158,11,0.12); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.2); }
+.badge-red { background: rgba(239,68,68,0.12); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.2); }
+.badge-blue { background: rgba(59,130,246,0.12); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.2); }
+.badge-purple { background: rgba(139,92,246,0.12); color: var(--accent-purple); border: 1px solid rgba(139,92,246,0.2); }
+
+/* Progress Bar */
+.progress-bar {
+  height: 6px; border-radius: 3px;
+  background: var(--border); overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4, .grid-6 { grid-template-columns: 1fr; }
+  .nav-tabs { display: none; }
+  .mobile-menu-btn { display: flex !important; }
+}
+
+/* Container */
+.container {
+  max-width: 1400px; margin: 0 auto; padding: 0 24px;
+}
+
+.section-title {
+  font-size: 24px; font-weight: 700; margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 14px; color: var(--text-secondary); margin-bottom: 28px;
+}
+
+/* Dashboard Preview */
+.dashboard-preview {
+  padding: 40px 0 60px;
+}
+
+.preview-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.preview-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text-muted);
+}
+
+.demo-toggle {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 8px;
+  background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2);
+  color: var(--accent-emerald); font-size: 12px; font-weight: 600;
+  cursor: pointer;
+}
+
+/* Metric Cards */
+.metric-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.metric-value {
+  font-size: 28px; font-weight: 800;
+}
+
+.metric-label {
+  font-size: 13px; color: var(--text-secondary); font-weight: 500;
+}
+
+.metric-change {
+  font-size: 12px; font-weight: 600;
+}
+
+/* Priority Cards */
+.priority-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+
+.priority-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+
+.priority-card:hover { transform: translateY(-2px); }
+
+.priority-card.emerald::before { background: linear-gradient(90deg, var(--accent-emerald), transparent); }
+.priority-card.amber::before { background: linear-gradient(90deg, var(--accent-amber), transparent); }
+.priority-card.red::before { background: linear-gradient(90deg, var(--accent-red), transparent); }
+.priority-card.blue::before { background: linear-gradient(90deg, var(--accent-blue), transparent); }
+.priority-card.purple::before { background: linear-gradient(90deg, var(--accent-purple), transparent); }
+
+.priority-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+
+.priority-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.priority-title {
+  font-size: 13px; font-weight: 700; color: var(--text-primary);
+}
+
+.priority-company {
+  font-size: 18px; font-weight: 700; margin-bottom: 8px;
+}
+
+.priority-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* Table */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table th {
+  text-align: left; padding: 12px 16px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  color: var(--text-primary); font-weight: 500;
+  vertical-align: middle;
+}
+
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.data-table tr { cursor: pointer; }
+
+/* Heat Map */
+.heat-map {
+  display: grid; gap: 2px;
+  background: var(--border); border-radius: 8px; overflow: hidden;
+}
+
+.heat-cell {
+  padding: 12px 8px; text-align: center; font-size: 12px; font-weight: 600;
+  transition: all 0.2s; cursor: pointer;
+  min-height: 48px; display: flex; align-items: center; justify-content: center;
+}
+
+.heat-cell:hover { filter: brightness(1.2); }
+
+.heat-cell.header {
+  background: var(--bg-secondary); color: var(--text-muted);
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.heat-cell.company-label {
+  background: var(--bg-secondary); color: var(--text-primary);
+  font-size: 11px; font-weight: 600;
+  justify-content: flex-start; padding-left: 12px;
+}
+
+/* Forms */
+.form-group { margin-bottom: 20px; }
+
+.form-label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--text-primary); margin-bottom: 6px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 12px 14px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text-primary);
+  font-size: 14px; font-family: inherit;
+  transition: all 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none; border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.form-textarea { min-height: 100px; resize: vertical; }
+
+.form-select { cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+/* Analysis Progress */
+.progress-steps {
+  display: flex; gap: 8px; margin-bottom: 32px;
+}
+
+.progress-step {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--border); transition: all 0.3s;
+}
+
+.progress-step.active { background: var(--accent-blue); }
+
+.progress-step.complete { background: var(--accent-emerald); }
+
+/* Report Sections */
+.report-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px; margin-bottom: 20px;
+}
+
+.report-section-title {
+  font-size: 16px; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.report-section-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+/* Lists */
+.styled-list { list-style: none; }
+
+.styled-list li {
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--text-secondary);
+}
+
+.styled-list li:last-child { border-bottom: none; }
+
+.styled-list .bullet {
+  width: 6px; height: 6px; border-radius: 50%;
+  margin-top: 8px; flex-shrink: 0;
+}
+
+/* Risk Items */
+.risk-item {
+  padding: 16px; border-radius: 10px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.risk-item-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.risk-item-title {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+}
+
+.risk-item-level {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 3px 10px; border-radius: 4px;
+}
+
+.risk-item-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* Due Diligence */
+.dd-category {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 12px; overflow: hidden;
+}
+
+.dd-category-header {
+  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; background: rgba(255,255,255,0.02);
+}
+
+.dd-category-title {
+  font-size: 14px; font-weight: 600;
+}
+
+.dd-category-count {
+  font-size: 12px; color: var(--text-muted); font-weight: 500;
+}
+
+.dd-questions {
+  padding: 0 18px 14px; display: none;
+}
+
+.dd-questions.open { display: block; }
+
+.dd-question {
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+
+.dd-question:last-child { border-bottom: none; }
+
+.dd-checkbox {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 2px solid var(--border-light); flex-shrink: 0;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  margin-top: 2px; transition: all 0.2s;
+}
+
+.dd-checkbox.checked {
+  background: var(--accent-emerald); border-color: var(--accent-emerald);
+}
+
+.dd-q-text {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+  flex: 1;
+}
+
+.dd-q-text.answered { text-decoration: line-through; opacity: 0.5; }
+
+/* Action Items */
+.action-item {
+  display: flex; gap: 16px; padding: 16px;
+  background: var(--bg-secondary); border-radius: 10px;
+  border-left: 3px solid var(--accent-blue);
+  margin-bottom: 12px;
+}
+
+.action-timeframe {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--accent-blue);
+  white-space: nowrap; min-width: 80px;
+}
+
+.action-content { flex: 1; }
+
+.action-title {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.action-meta {
+  font-size: 12px; color: var(--text-muted);
+}
+
+/* AI Advisor */
+.advisor-card {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08));
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 14px; padding: 24px;
+}
+
+.advisor-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+
+.advisor-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.advisor-title {
+  font-size: 15px; font-weight: 700;
+}
+
+.advisor-subtitle {
+  font-size: 12px; color: var(--text-muted);
+}
+
+.advisor-rec {
+  padding: 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.03); margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.advisor-rec-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.advisor-rec-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* Scenario Tool */
+.scenario-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
+}
+
+.scenario-btn {
+  padding: 16px; border-radius: 10px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  color: var(--text-primary); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-align: left;
+}
+
+.scenario-btn:hover { border-color: var(--accent-blue); background: rgba(59,130,246,0.05); }
+
+.scenario-btn.active {
+  border-color: var(--accent-blue); background: rgba(59,130,246,0.1);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.scenario-result {
+  margin-top: 20px; padding: 20px;
+  background: var(--bg-secondary); border-radius: 10px;
+  border: 1px solid var(--border); display: none;
+}
+
+.scenario-result.show { display: block; animation: fadeIn 0.3s ease; }
+
+/* Confidence */
+.confidence-bar {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px;
+}
+
+.confidence-dots {
+  display: flex; gap: 4px;
+}
+
+.confidence-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border);
+}
+
+.confidence-dot.filled { background: var(--accent-blue); }
+
+.confidence-text {
+  font-size: 12px; color: var(--text-muted); font-weight: 500;
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 6px;
+  font-size: 12px; color: var(--text-primary); white-space: nowrap;
+  z-index: 100; margin-bottom: 6px;
+  box-shadow: var(--shadow);
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  background: var(--bg-secondary);
+}
+
+.footer-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}
+
+.footer-brand {
+  font-size: 16px; font-weight: 700; margin-bottom: 8px;
+}
+
+.footer-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+.footer-links h4 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 12px;
+}
+
+.footer-links a {
+  display: block; font-size: 13px; color: var(--text-secondary);
+  text-decoration: none; padding: 4px 0; transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--text-primary); }
+
+.footer-bottom {
+  max-width: 1400px; margin: 0 auto; padding-top: 24px; margin-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+
+.footer-disclaimer {
+  font-size: 12px; color: var(--text-muted); max-width: 800px; line-height: 1.5;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 24px;
+}
+
+.modal-overlay.show { display: flex; }
+
+.modal {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; max-width: 900px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--bg-card); z-index: 10;
+}
+
+.modal-title { font-size: 18px; font-weight: 700; }
+
+.modal-close {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.modal-close:hover { color: var(--text-primary); background: var(--border); }
+
+.modal-body { padding: 24px; }
+
+/* Mobile menu */
+.mobile-menu-btn {
+  display: none; width: 36px; height: 36px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text-primary);
+  align-items: center; justify-content: center; cursor: pointer;
+}
+
+.mobile-menu {
+  position: fixed; top: 64px; left: 0; right: 0;
+  background: var(--bg-secondary); border-bottom: 1px solid var(--border);
+  padding: 16px; display: none; flex-direction: column; gap: 4px;
+  z-index: 999;
+}
+
+.mobile-menu.show { display: flex; }
+
+.mobile-menu .nav-tab { width: 100%; text-align: left; }
+
+/* Print */
+@media print {
+  .navbar, .footer, .nav-cta, .btn, .mobile-menu-btn { display: none !important; }
+  .main-content { padding-top: 0; }
+  .section { display: block !important; }
+  body { background: white; color: black; }
+}
+
+/* Utility */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 4px; } .mt-2 { margin-top: 8px; } .mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; } .mt-8 { margin-top: 32px; }
+.mb-1 { margin-bottom: 4px; } .mb-2 { margin-bottom: 8px; } .mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; } .mb-6 { margin-bottom: 24px; } .mb-8 { margin-bottom: 32px; }
+.flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; } .gap-3 { gap: 12px; } .gap-4 { gap: 16px; }
+.w-full { width: 100%; }
+.hidden { display: none !important; }
+
+/* Section padding */
+.section-padding { padding: 40px 0; }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <div class="brand-icon">PI</div>
+      <div class="brand-text">
+        <span class="brand-title">Portfolio Intelligence AI™</span>
+        <span class="brand-sub">by NOFA AI Factory</span>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+      <button class="nav-tab" data-tab="analyze" onclick="switchTab('analyze')">Analyze Company</button>
+      <button class="nav-tab" data-tab="portfolio" onclick="switchTab('portfolio')">Portfolio View</button>
+      <button class="nav-tab" data-tab="reports" onclick="switchTab('reports')">Reports</button>
+      <button class="nav-tab" data-tab="about" onclick="switchTab('about')">About</button>
+    </div>
+    <button class="nav-cta" onclick="switchTab('analyze')">Start Analysis</button>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard'); toggleMobileMenu()">Dashboard</button>
+    <button class="nav-tab" data-tab="analyze" onclick="switchTab('analyze'); toggleMobileMenu()">Analyze Company</button>
+    <button class="nav-tab" data-tab="portfolio" onclick="switchTab('portfolio'); toggleMobileMenu()">Portfolio View</button>
+    <button class="nav-tab" data-tab="reports" onclick="switchTab('reports'); toggleMobileMenu()">Reports</button>
+    <button class="nav-tab" data-tab="about" onclick="switchTab('about'); toggleMobileMenu()">About</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+
+<!-- ==================== DASHBOARD ==================== -->
+<div class="section active" id="dashboard">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge"><span class="dot"></span> AI-Powered Decision Support</div>
+    <h1>See what others miss<br>before you invest.</h1>
+    <p>Analyze companies, uncover hidden risks, compare portfolio opportunities, and identify where AI and operational investment could create the greatest return.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="switchTab('analyze')">
+        <span>🔍</span> Analyze a Company
+      </button>
+      <button class="btn btn-secondary" onclick="switchTab('portfolio')">
+        <span>📊</span> Review a Portfolio
+      </button>
+    </div>
+  </div>
+
+  <!-- Dashboard Preview -->
+  <div class="container dashboard-preview">
+    <div class="preview-header">
+      <span class="preview-label">Live Portfolio Preview</span>
+      <button class="demo-toggle" onclick="loadDemoPortfolio()">
+        <span>●</span> Explore Demonstration
+      </button>
+    </div>
+
+    <!-- Top Metrics -->
+    <div class="grid-6 mb-6" id="dashMetrics">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Priority Decision Cards -->
+    <div class="grid-3 mb-6" id="dashPriorityCards">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Portfolio Comparison Table -->
+    <div class="card mb-6">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Portfolio Comparison</div>
+          <div class="card-subtitle">Click any company to view full intelligence report</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <select class="form-select" style="width:auto;min-width:140px;font-size:12px;padding:8px 28px 8px 12px;" id="dashFilterIndustry" onchange="renderDashTable()">
+            <option value="all">All Industries</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="data-table" id="dashTable">
+          <!-- Populated by JS -->
+        </table>
+      </div>
+    </div>
+
+    <!-- Heat Map + AI Advisor -->
+    <div class="grid-2 mb-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Portfolio Heat Map</div>
+          <div class="card-subtitle">Color intensity indicates score strength</div>
+        </div>
+        <div id="dashHeatMap"></div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-header">
+          <div class="advisor-avatar">🤖</div>
+          <div>
+            <div class="advisor-title">AI Portfolio Advisor</div>
+            <div class="advisor-subtitle">Strategic recommendations based on portfolio data</div>
+          </div>
+        </div>
+        <div id="dashAdvisor"></div>
+      </div>
+    </div>
+
+    <!-- What the platform analyzes -->
+    <div class="mb-6">
+      <h2 class="section-title">What the platform analyzes</h2>
+      <p class="section-desc">Comprehensive intelligence across every dimension that matters to investors and operators.</p>
+      <div class="grid-4" id="featuresGrid"></div>
+    </div>
+
+    <!-- Who it is for -->
+    <div class="mb-6">
+      <h2 class="section-title">Who it is for</h2>
+      <p class="section-desc">Built for professionals who evaluate, acquire, and operate multiple businesses.</p>
+      <div class="grid-5" id="audienceGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;"></div>
+    </div>
+
+    <!-- How it works -->
+    <div class="mb-6">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-desc">From first input to board-ready insight in minutes, not weeks.</p>
+      <div class="grid-4" id="howItWorks"></div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="card" style="background:rgba(239,68,68,0.04);border-color:rgba(239,68,68,0.15);">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:20px;">⚠️</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--accent-red);margin-bottom:4px;">Important Disclaimer</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+            Portfolio Intelligence AI™ provides decision-support analysis and does not replace professional financial, legal, accounting, operational, cybersecurity, valuation, or investment due diligence. Findings, scores, and recommendations should be independently verified before making investment or business decisions.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ANALYZE COMPANY ==================== -->
+<div class="section" id="analyze">
+  <div class="container" style="padding-top:40px; padding-bottom:60px;">
+
+    <!-- Analysis Form -->
+    <div id="analysisFormContainer">
+      <div class="text-center mb-8">
+        <h1 class="section-title" style="font-size:28px;">Analyze a Company</h1>
+        <p class="section-desc">Enter company details to generate a comprehensive intelligence report.</p>
+      </div>
+
+      <div class="card" style="max-width:800px;margin:0 auto;">
+        <form id="companyForm" onsubmit="startAnalysis(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Company Name *</label>
+              <input type="text" class="form-input" name="name" required placeholder="e.g. Acme Corporation">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company Website</label>
+              <input type="url" class="form-input" name="website" placeholder="https://example.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Industry *</label>
+              <select class="form-select" name="industry" required>
+                <option value="">Select industry</option>
+                <option>Technology & Software</option>
+                <option>Healthcare & Life Sciences</option>
+                <option>Financial Services</option>
+                <option>Manufacturing & Industrial</option>
+                <option>Consumer Goods & Retail</option>
+                <option>Logistics & Transportation</option>
+                <option>Real Estate & Construction</option>
+                <option>Energy & Utilities</option>
+                <option>Professional Services</option>
+                <option>Food & Beverage</option>
+                <option>Education & Training</option>
+                <option>Media & Entertainment</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Headquarters / Primary Market</label>
+              <input type="text" class="form-input" name="headquarters" placeholder="City, State / Country">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Annual Revenue Range</label>
+              <select class="form-select" name="revenueRange">
+                <option value="">Select range</option>
+                <option>Under $1M</option>
+                <option>$1M – $5M</option>
+                <option>$5M – $10M</option>
+                <option>$10M – $25M</option>
+                <option>$25M – $50M</option>
+                <option>$50M – $100M</option>
+                <option>$100M – $250M</option>
+                <option>$250M – $500M</option>
+                <option>$500M+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Employee Range</label>
+              <select class="form-select" name="employeeRange">
+                <option value="">Select range</option>
+                <option>1 – 10</option>
+                <option>11 – 50</option>
+                <option>51 – 200</option>
+                <option>201 – 500</option>
+                <option>501 – 1,000</option>
+                <option>1,001 – 5,000</option>
+                <option>5,000+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Years in Business</label>
+              <input type="number" class="form-input" name="yearsInBusiness" min="0" max="200" placeholder="e.g. 12">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ownership Type</label>
+              <select class="form-select" name="ownershipType">
+                <option value="">Select type</option>
+                <option>Founder-owned</option>
+                <option>Family-owned</option>
+                <option>Private Equity</option>
+                <option>Venture Capital-backed</option>
+                <option>Publicly Traded</option>
+                <option>Employee-owned</option>
+                <option>Partnership</option>
+                <option>Franchise</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Investment Status</label>
+              <select class="form-select" name="investmentStatus">
+                <option value="">Select status</option>
+                <option>Pre-revenue / Startup</option>
+                <option>Seed / Early Stage</option>
+                <option>Growth Stage</option>
+                <option>Mature / Stable</option>
+                <option>Distressed / Turnaround</option>
+                <option>Pre-exit</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Primary Business Objective</label>
+              <select class="form-select" name="objective">
+                <option value="">Select objective</option>
+                <option>Growth & expansion</option>
+                <option>Operational efficiency</option>
+                <option>Technology modernization</option>
+                <option>Market consolidation</option>
+                <option>Preparing for sale</option>
+                <option>Turnaround & stabilization</option>
+                <option>Maintaining current performance</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Reason for Analysis *</label>
+            <select class="form-select" name="reasonForAnalysis" required>
+              <option value="">Select reason</option>
+              <option>Potential acquisition</option>
+              <option>Existing portfolio review</option>
+              <option>AI investment evaluation</option>
+              <option>Operational improvement</option>
+              <option>Growth planning</option>
+              <option>Technology modernization</option>
+              <option>Due diligence</option>
+              <option>General business assessment</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Known Operational Concerns</label>
+            <textarea class="form-textarea" name="operationalConcerns" placeholder="Describe any known operational challenges..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Known Technology Concerns</label>
+            <textarea class="form-textarea" name="technologyConcerns" placeholder="Describe any known technology or systems challenges..."></textarea>
+          </div>
+
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:28px;">
+            <button type="submit" class="btn btn-primary" style="padding:14px 36px;">
+              <span>⚡</span> Generate Company Intelligence
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="fillDemoData()">
+              <span>🎲</span> Use Demo Data
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Analysis Progress -->
+    <div id="analysisProgress" style="display:none;max-width:600px;margin:60px auto;text-align:center;">
+      <div style="font-size:20px;font-weight:700;margin-bottom:32px;">Analyzing company intelligence...</div>
+      <div class="progress-steps" id="progressSteps"></div>
+      <div id="progressText" style="font-size:14px;color:var(--text-secondary);margin-top:16px;height:24px;"></div>
+      <div style="margin-top:40px;">
+        <div style="width:200px;height:4px;background:var(--border);border-radius:2px;margin:0 auto;overflow:hidden;">
+          <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,var(--accent-blue),var(--accent-cyan));border-radius:2px;transition:width 0.5s ease;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analysis Results -->
+    <div id="analysisResults" style="display:none;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="resetAnalysis()">← New Analysis</button>
+        <div style="flex:1;">
+          <h1 id="resultCompanyName" style="font-size:24px;font-weight:800;"></h1>
+          <div id="resultCompanyMeta" style="font-size:13px;color:var(--text-secondary);"></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary" onclick="copySummary()">📋 Copy Summary</button>
+          <button class="btn btn-secondary" onclick="addToPortfolioFromAnalysis()">➕ Add to Portfolio</button>
+        </div>
+      </div>
+
+      <!-- Overall Score -->
+      <div class="card mb-6" style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+        <div class="score-ring" id="overallScoreRing"></div>
+        <div style="flex:1;min-width:280px;">
+          <div id="resultClassification" style="font-size:18px;font-weight:700;margin-bottom:6px;"></div>
+          <div id="resultConfidence" style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;"></div>
+          <div id="resultExplanation" style="font-size:14px;color:var(--text-secondary);line-height:1.6;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-width:200px;">
+          <div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Risk Level</div>
+            <div id="resultRiskBadge"></div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">AI Readiness</div>
+            <div id="resultAIReadinessBadge"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Breakdown -->
+      <div class="grid-4 mb-6" id="scoreBreakdown"></div>
+
+      <!-- Investment Assessment -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(59,130,246,0.15);">💼</div>
+          Investment Opportunity Assessment
+        </div>
+        <div id="investmentAssessment"></div>
+      </div>
+
+      <!-- Strengths & Weaknesses -->
+      <div class="grid-2 mb-6">
+        <div class="report-section" style="border-left:3px solid var(--accent-emerald);">
+          <div class="report-section-title">
+            <div class="report-section-icon" style="background:rgba(16,185,129,0.15);">✅</div>
+            Business-Model Strengths
+          </div>
+          <ul class="styled-list" id="strengthsList"></ul>
+        </div>
+        <div class="report-section" style="border-left:3px solid var(--accent-amber);">
+          <div class="report-section-title">
+            <div class="report-section-icon" style="background:rgba(245,158,11,0.15);">⚠️</div>
+            Business-Model Weaknesses
+          </div>
+          <ul class="styled-list" id="weaknessesList"></ul>
+        </div>
+      </div>
+
+      <!-- Risk Analysis -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(239,68,68,0.15);">🛡️</div>
+          Operational Risk Analysis
+        </div>
+        <div id="operationalRisks"></div>
+      </div>
+
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(245,158,11,0.15);">💻</div>
+          Technology Risk Analysis
+          <span id="techRiskScore" style="margin-left:auto;font-size:14px;"></span>
+        </div>
+        <div id="technologyRisks"></div>
+      </div>
+
+      <!-- AI Readiness -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(139,92,246,0.15);">🤖</div>
+          AI-Readiness Assessment
+        </div>
+        <div id="aiReadinessSection"></div>
+      </div>
+
+      <!-- Growth Opportunities -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(16,185,129,0.15);">📈</div>
+          Growth Opportunities
+        </div>
+        <div id="growthOpportunities"></div>
+      </div>
+
+      <!-- Efficiency Opportunities -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(6,182,212,0.15);">⚙️</div>
+          Efficiency & AI Return Opportunities
+        </div>
+        <div id="efficiencyOpportunities"></div>
+        <div style="margin-top:20px;padding:20px;background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border);">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">🏆 Best AI Return Opportunities</div>
+          <div id="bestAIOpportunities"></div>
+        </div>
+      </div>
+
+      <!-- Due Diligence -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(59,130,246,0.15);">📋</div>
+          Due-Diligence Questions
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="copyAllDD()">📋 Copy All</button>
+          </div>
+        </div>
+        <div id="dueDiligenceSection"></div>
+      </div>
+
+      <!-- Portfolio Fit -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(139,92,246,0.15);">🧩</div>
+          Portfolio Fit Analysis
+        </div>
+        <div id="portfolioFitSection"></div>
+      </div>
+
+      <!-- Recommended Actions -->
+      <div class="report-section">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(6,182,212,0.15);">🎯</div>
+          Recommended Next Actions
+        </div>
+        <div id="recommendedActions"></div>
+      </div>
+
+      <!-- Executive Summary -->
+      <div class="report-section" style="background:linear-gradient(135deg,rgba(59,130,246,0.06),rgba(139,92,246,0.06));border-color:rgba(59,130,246,0.2);">
+        <div class="report-section-title">
+          <div class="report-section-icon" style="background:rgba(59,130,246,0.15);">📄</div>
+          Executive Summary
+        </div>
+        <div id="executiveSummary" style="font-size:14px;line-height:1.8;color:var(--text-secondary);"></div>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="copySummary()">📋 Copy Summary</button>
+          <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Report</button>
+          <button class="btn btn-primary" onclick="addToPortfolioFromAnalysis()">➕ Add to Portfolio</button>
+          <button class="btn btn-secondary" onclick="resetAnalysis()">🔄 Start New Analysis</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PORTFOLIO VIEW ==================== -->
+<div class="section" id="portfolio">
+  <div class="container" style="padding-top:40px; padding-bottom:60px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h1 class="section-title" style="font-size:28px;">Portfolio Command Center</h1>
+        <p class="section-desc" style="margin-bottom:0;">Compare, rank, and prioritize across your entire portfolio.</p>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary" onclick="loadDemoPortfolio()">🎲 Load Demo Portfolio</button>
+        <button class="btn btn-primary" onclick="switchTab('analyze')">➕ Add Company</button>
+      </div>
+    </div>
+
+    <!-- Portfolio Metrics -->
+    <div class="grid-6 mb-6" id="portfolioMetrics"></div>
+
+    <!-- Priority Decision Cards -->
+    <div class="grid-3 mb-6" id="portfolioPriorityCards"></div>
+
+    <!-- Comparison Table -->
+    <div class="card mb-6">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Portfolio Comparison Table</div>
+          <div class="card-subtitle">Sort and filter to find insights</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <select class="form-select" style="width:auto;min-width:130px;font-size:12px;padding:8px 28px 8px 12px;" id="portFilterIndustry" onchange="renderPortfolioTable()">
+            <option value="all">All Industries</option>
+          </select>
+          <select class="form-select" style="width:auto;min-width:130px;font-size:12px;padding:8px 28px 8px 12px;" id="portFilterRisk" onchange="renderPortfolioTable()">
+            <option value="all">All Risk Levels</option>
+            <option value="low">Low Risk</option>
+            <option value="medium">Medium Risk</option>
+            <option value="high">High Risk</option>
+          </select>
+          <select class="form-select" style="width:auto;min-width:130px;font-size:12px;padding:8px 28px 8px 12px;" id="portFilterPriority" onchange="renderPortfolioTable()">
+            <option value="all">All Priorities</option>
+            <option value="Invest">Invest</option>
+            <option value="Expand">Expand</option>
+            <option value="Modernize">Modernize</option>
+            <option value="Stabilize">Stabilize</option>
+            <option value="Monitor">Monitor</option>
+            <option value="Review">Review</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="data-table" id="portfolioTable"></table>
+      </div>
+    </div>
+
+    <!-- Heat Map + Rankings -->
+    <div class="grid-2 mb-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Portfolio Heat Map</div>
+          <div class="card-subtitle">Visual comparison across key dimensions</div>
+        </div>
+        <div id="portfolioHeatMap"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Portfolio Rankings</div>
+          <div class="card-subtitle">Click to view company report</div>
+        </div>
+        <div id="portfolioRankings"></div>
+      </div>
+    </div>
+
+    <!-- AI Portfolio Advisor -->
+    <div class="advisor-card mb-6">
+      <div class="advisor-header">
+        <div class="advisor-avatar">🤖</div>
+        <div>
+          <div class="advisor-title">AI Portfolio Advisor</div>
+          <div class="advisor-subtitle">Strategic recommendations across your portfolio</div>
+        </div>
+      </div>
+      <div id="portfolioAdvisor"></div>
+    </div>
+
+    <!-- Scenario Tool -->
+    <div class="card mb-6">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Portfolio Scenario Tool</div>
+          <div class="card-subtitle">Simulate strategic decisions and see potential outcomes</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label class="form-label">Select Company</label>
+        <select class="form-select" id="scenarioCompany" style="max-width:400px;" onchange="renderScenarioOptions()"></select>
+      </div>
+      <div id="scenarioOptions" class="scenario-grid"></div>
+      <div id="scenarioResult" class="scenario-result"></div>
+      <div style="margin-top:16px;padding:12px;background:rgba(245,158,11,0.06);border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <span style="font-size:12px;color:var(--accent-amber);font-weight:600;">⚠️ Illustrative scenario — not a financial projection</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== REPORTS ==================== -->
+<div class="section" id="reports">
+  <div class="container" style="padding-top:40px; padding-bottom:60px;">
+    <h1 class="section-title" style="font-size:28px;">Reports Library</h1>
+    <p class="section-desc">View, manage, and export your saved company analyses.</p>
+
+    <div id="reportsList">
+      <div class="card" style="text-align:center;padding:60px 24px;">
+        <div style="font-size:48px;margin-bottom:16px;">📂</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">No reports saved yet</div>
+        <div style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;">Analyze a company to generate your first report. Reports are saved in your browser.</div>
+        <button class="btn btn-primary" onclick="switchTab('analyze')">Analyze a Company</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<div class="section" id="about">
+  <div class="container" style="padding-top:40px; padding-bottom:60px;">
+    <div class="text-center mb-8">
+      <h1 class="section-title" style="font-size:32px;">About Portfolio Intelligence AI™</h1>
+    </div>
+
+    <div class="card" style="max-width:800px;margin:0 auto 40px;">
+      <p style="font-size:16px;line-height:1.8;color:var(--text-secondary);margin-bottom:20px;">
+        <strong style="color:var(--text-primary);">Portfolio Intelligence AI™</strong> helps investors, holding companies, and multi-business owners evaluate companies, uncover hidden risks, identify growth and efficiency opportunities, assess AI readiness, and prioritize action across an entire portfolio.
+      </p>
+      <p style="font-size:16px;line-height:1.8;color:var(--text-secondary);margin-bottom:20px;">
+        Built by <strong style="color:var(--text-primary);">NOFA AI Factory</strong>, the platform demonstrates how practical AI can improve business analysis, due diligence, portfolio management, and executive decision-making.
+      </p>
+      <p style="font-size:16px;line-height:1.8;color:var(--text-secondary);">
+        Whether you are evaluating a single acquisition or managing a portfolio of operating companies, Portfolio Intelligence AI™ provides the structured intelligence you need to make faster, more confident decisions.
+      </p>
+    </div>
+
+    <div class="text-center mb-8">
+      <h2 class="section-title">Who it is for</h2>
+    </div>
+    <div class="grid-5" id="aboutAudience" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:40px;"></div>
+
+    <div class="card" style="max-width:600px;margin:0 auto;text-align:center;padding:40px;">
+      <div style="font-size:32px;margin-bottom:16px;">🚀</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:12px;">Request a Custom Prototype</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;">Interested in a tailored version for your firm? Let's discuss your specific requirements.</p>
+      <a href="https://nofaaifactory.com" target="_blank" class="btn btn-primary" style="text-decoration:none;">Visit NOFA AI Factory</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main-content -->
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Portfolio Intelligence AI™</div>
+      <div class="footer-desc">AI-powered decision-support platform for investors, holding companies, and multi-business owners. Built by NOFA AI Factory.</div>
+    </div>
+    <div class="footer-links">
+      <h4>Product</h4>
+      <a href="#" onclick="switchTab('dashboard');return false;">Dashboard</a>
+      <a href="#" onclick="switchTab('analyze');return false;">Analyze Company</a>
+      <a href="#" onclick="switchTab('portfolio');return false;">Portfolio View</a>
+      <a href="#" onclick="switchTab('reports');return false;">Reports</a>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="#" onclick="switchTab('about');return false;">About</a>
+      <a href="https://nofaaifactory.com" target="_blank">NOFA AI Factory</a>
+      <a href="https://calendly.com/farhad-nofa/30min" target="_blank">Request a Consultation</a>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-disclaimer">
+      Portfolio Intelligence AI™ provides decision-support analysis and does not replace professional financial, legal, accounting, operational, cybersecurity, valuation, or investment due diligence. Findings, scores, and recommendations should be independently verified before making investment or business decisions.
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);">© 2026 NOFA AI Factory. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- Company Detail Modal -->
+<div class="modal-overlay" id="companyModal" onclick="if(event.target===this)closeCompanyModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Company Intelligence</div>
+      <button class="modal-close" onclick="closeCompanyModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ==================== DEMO DATA ====================
+const demoCompanies = [
+  {
+    id: "demo-1", name: "Northstar Foods Group", website: "northstarfoods.example.com",
+    industry: "Food & Beverage", headquarters: "Chicago, IL", revenueRange: "$25M – $50M",
+    employeeRange: "201 – 500", yearsInBusiness: 18, ownershipType: "Family-owned",
+    investmentStatus: "Mature / Stable", objective: "Growth & expansion",
+    opportunityScore: 82, riskScore: 34, technologyRiskScore: 45,
+    aiReadinessScore: 58, growthPotentialScore: 76, efficiencyPotentialScore: 71,
+    portfolioFitScore: 68, integrationComplexityScore: 42,
+    strengths: ["Recurring revenue from long-term retail contracts","Established distribution network across Midwest","Strong brand recognition in specialty food segment","Stable demand with seasonal diversification","Attractive gross margins on premium product lines"],
+    weaknesses: ["Customer concentration in three major retail chains","Owner-dependent leadership in key decisions","Limited e-commerce and direct-to-consumer presence","Aging production equipment requiring capital investment","Geographic concentration risk"],
+    operationalRisks: [
+      {category:"Leadership dependency",level:"high",explanation:"Founder actively involved in daily operations and key supplier relationships.",impact:"Significant disruption if founder exits without transition plan.",suggestedAction:"Document key relationships and develop succession plan within 90 days."},
+      {category:"Quality control",level:"medium",explanation:"Manual quality checks on production line with limited digital traceability.",impact:"Potential for inconsistent product quality and recall exposure.",suggestedAction:"Implement digital quality management system with batch tracking."},
+      {category:"Supply chain",level:"medium",explanation:"Reliance on regional suppliers with limited backup options.",impact:"Vulnerable to regional disruptions, price volatility.",suggestedAction:"Diversify supplier base and negotiate multi-source agreements."}
+    ],
+    technologyRisks: [
+      {category:"Legacy systems",level:"high",explanation:"ERP system is 12 years old and no longer supported by vendor.",impact:"Security vulnerabilities, integration limitations, rising maintenance costs.",suggestedAction:"Begin ERP modernization evaluation within 60 days."},
+      {category:"Manual data entry",level:"medium",explanation:"Inventory and order data entered manually across three locations.",impact:"Data inconsistencies, delayed reporting, human error.",suggestedAction:"Implement barcode scanning and automated inventory tracking."},
+      {category:"Limited automation",level:"medium",explanation:"Production scheduling and demand forecasting done via spreadsheets.",impact:"Inefficient resource allocation, stockouts, excess inventory.",suggestedAction:"Deploy production planning and forecasting software."}
+    ],
+    growthOpportunities: [
+      {category:"New revenue streams",description:"Launch direct-to-consumer e-commerce channel",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"Strong brand and existing product line can support online sales with moderate investment."},
+      {category:"Market expansion",description:"Expand distribution to Southeast and West Coast markets",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term",reasoning:"Requires new distribution partnerships and potential facility expansion."},
+      {category:"Cross-selling",description:"Bundle complementary product lines for retail partners",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate",reasoning:"Low-cost initiative that can increase average order value quickly."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Labor efficiency",description:"Automate production line scheduling and workforce allocation",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Inventory management",description:"Implement AI-driven demand forecasting and automated reordering",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Customer service",description:"Deploy AI chatbot for order status and common inquiries",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate"},
+      {category:"Quality assurance",description:"Computer vision system for automated quality inspection",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the customer concentration by revenue?","Are there any outstanding tax liabilities or audits?","What is the true adjusted EBITDA over the last 3 years?"]},
+      {category:"Operational",questions:["What is the current production capacity utilization?","Are there any pending OSHA or food safety violations?","What is the average employee tenure and turnover rate?"]},
+      {category:"Technology",questions:["What is the current ERP and when was it last upgraded?","Are there any custom software dependencies without documentation?","What cybersecurity measures are in place?"]},
+      {category:"Legal",questions:["Are there any pending litigation or regulatory actions?","What intellectual property protections exist for recipes/brands?","Are all required licenses and permits current?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Request 3-year financial statements and customer concentration analysis",priority:"critical",owner:"Investment Team",expectedOutcome:"Validate revenue quality and identify concentration risk magnitude",dependency:"Company cooperation",decisionRequired:"Proceed with preliminary due diligence?"},
+      {timeframe:"30-days",action:"Conduct management interviews and leadership succession assessment",priority:"high",owner:"Operating Partner",expectedOutcome:"Evaluate leadership depth and transition readiness",dependency:"Management availability",decisionRequired:"Is current leadership capable of executing growth plan?"},
+      {timeframe:"60-days",action:"Engage technology consultant for ERP modernization roadmap",priority:"high",owner:"Technology Advisor",expectedOutcome:"Define scope, timeline, and investment for technology upgrade",dependency:"Access to current systems",decisionRequired:"Budget approval for technology modernization?"},
+      {timeframe:"90-days",action:"Develop e-commerce go-to-market strategy with implementation timeline",priority:"medium",owner:"Growth Team",expectedOutcome:"Clear plan for direct-to-consumer revenue channel",dependency:"Brand and product positioning analysis",decisionRequired:"Allocate capital for e-commerce platform and marketing?"}
+    ],
+    executiveSummary: "Northstar Foods Group presents an attractive opportunity (Score: 82/100) with established market position and strong recurring revenue. However, significant leadership dependency and aging technology infrastructure require attention. The company is well-positioned for AI-driven operational improvements, particularly in inventory forecasting and production scheduling. Recommended next step: proceed with financial due diligence while simultaneously evaluating leadership succession readiness.",
+    confidenceLevel: "Moderate confidence", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  },
+  {
+    id: "demo-2", name: "Summit Logistics Partners", website: "summitlogistics.example.com",
+    industry: "Logistics & Transportation", headquarters: "Dallas, TX", revenueRange: "$50M – $100M",
+    employeeRange: "501 – 1,000", yearsInBusiness: 24, ownershipType: "Private Equity",
+    investmentStatus: "Growth Stage", objective: "Operational efficiency",
+    opportunityScore: 71, riskScore: 52, technologyRiskScore: 68,
+    aiReadinessScore: 42, growthPotentialScore: 65, efficiencyPotentialScore: 82,
+    portfolioFitScore: 74, integrationComplexityScore: 55,
+    strengths: ["Scalable asset-light model with contracted carrier network","Strong relationships with enterprise clients","Experienced operations team with industry expertise","Diversified across multiple verticals (retail, pharma, industrial)","Proprietary route optimization algorithms (basic)"],
+    weaknesses: ["Fragmented technology stack across acquired subsidiaries","High customer acquisition cost","Driver turnover above industry average","Limited real-time visibility for clients","Margin pressure from fuel and labor costs"],
+    operationalRisks: [
+      {category:"Staffing",level:"high",explanation:"Driver turnover rate of 42% annually, well above industry average of 25%.",impact:"Service disruptions, increased recruitment costs, safety concerns.",suggestedAction:"Implement driver retention program with incentives and improved working conditions."},
+      {category:"Workflow inefficiency",level:"medium",explanation:"Dispatch and routing decisions rely on manual processes and basic spreadsheets.",impact:"Suboptimal route planning, higher fuel costs, delayed deliveries.",suggestedAction:"Deploy advanced route optimization and dispatch automation."},
+      {category:"Customer service",level:"medium",explanation:"Client inquiries handled through email and phone with no self-service portal.",impact:"High support costs, slow response times, client dissatisfaction.",suggestedAction:"Build client portal with real-time tracking and automated notifications."}
+    ],
+    technologyRisks: [
+      {category:"Fragmented software",level:"high",explanation:"Three acquired companies each use different TMS, WMS, and accounting systems.",impact:"Data silos, manual reconciliation, limited portfolio-wide reporting.",suggestedAction:"Consolidate onto single integrated platform or build unified data layer."},
+      {category:"Cybersecurity exposure",level:"high",explanation:"No formal cybersecurity program; basic antivirus only.",impact:"Significant exposure to ransomware, data breach, operational disruption.",suggestedAction:"Engage cybersecurity firm for assessment and remediation plan."},
+      {category:"Poor reporting visibility",level:"medium",explanation:"Leadership receives weekly Excel reports with 3-day lag.",impact:"Delayed decision-making, inability to respond to operational issues in real time.",suggestedAction:"Implement executive dashboard with real-time KPIs."}
+    ],
+    growthOpportunities: [
+      {category:"Sales automation",description:"Automated lead scoring and outreach for new shipper acquisition",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"Can reduce CAC and accelerate sales cycle with targeted outreach."},
+      {category:"Digital channels",description:"Self-service client portal for booking, tracking, and invoicing",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"Improves client experience while reducing support overhead."},
+      {category:"Partnerships",description:"Strategic partnership with last-mile delivery providers",potentialImpact:"Moderate",implementationDifficulty:"medium",priority:"long-term",reasoning:"Extends service offering without capital investment in fleet."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Labor efficiency",description:"AI-powered driver scheduling and route optimization",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Reporting",description:"Unified executive dashboard across all subsidiaries",potentialImpact:"High",implementationDifficulty:"high",priority:"short-term"},
+      {category:"Customer service",description:"Automated shipment tracking and proactive delay notifications",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate"},
+      {category:"Finance",description:"Automated invoice reconciliation and accounts receivable",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the breakdown of revenue by subsidiary and vertical?","What are the true integration costs of the technology stack?","Are there any earn-out or contingent liabilities from acquisitions?"]},
+      {category:"Operational",questions:["What is the driver turnover rate by terminal and route type?","What is the on-time delivery performance by client?","Are there any pending DOT or FMCSA violations?"]},
+      {category:"Technology",questions:["What is the technology integration roadmap and budget?","Has there been any previous cybersecurity incident?","What data backup and disaster recovery plans exist?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Conduct cybersecurity vulnerability assessment",priority:"critical",owner:"CISO / Security Consultant",expectedOutcome:"Identify critical gaps and remediation priorities",dependency:"Vendor selection",decisionRequired:"Approve emergency security investment?"},
+      {timeframe:"30-days",action:"Begin technology consolidation planning with integration architect",priority:"high",owner:"CTO / Technology Advisor",expectedOutcome:"Unified technology roadmap with 12-month implementation plan",dependency:"Stakeholder alignment across subsidiaries",decisionRequired:"Consolidation approach: single platform vs. integration layer?"},
+      {timeframe:"60-days",action:"Launch driver retention pilot program at highest-turnover terminal",priority:"high",owner:"HR / Operations",expectedOutcome:"Reduce turnover by 15% within 6 months",dependency:"Budget for retention incentives",decisionRequired:"Fund retention program across all terminals?"},
+      {timeframe:"90-days",action:"Deploy client self-service portal MVP",priority:"medium",owner:"Product / Engineering",expectedOutcome:"Reduce support tickets by 30% and improve NPS",dependency:"API access to TMS data",decisionRequired:"Build in-house or partner with logistics platform vendor?"}
+    ],
+    executiveSummary: "Summit Logistics Partners shows strong operational scale and portfolio fit (Score: 71/100) but faces significant technology fragmentation and cybersecurity exposure. The highest-return AI opportunity lies in route optimization and unified reporting. Immediate priority: address cybersecurity gaps before expanding digital client services. Technology consolidation is essential for scalable growth.",
+    confidenceLevel: "Moderate confidence", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  },
+  {
+    id: "demo-3", name: "Meridian Home Health", website: "meridianhh.example.com",
+    industry: "Healthcare & Life Sciences", headquarters: "Phoenix, AZ", revenueRange: "$10M – $25M",
+    employeeRange: "201 – 500", yearsInBusiness: 14, ownershipType: "Founder-owned",
+    investmentStatus: "Growth Stage", objective: "Growth & expansion",
+    opportunityScore: 76, riskScore: 61, technologyRiskScore: 55,
+    aiReadinessScore: 38, growthPotentialScore: 84, efficiencyPotentialScore: 68,
+    portfolioFitScore: 62, integrationComplexityScore: 48,
+    strengths: ["Strong clinical outcomes and patient satisfaction scores","Established referral network with major hospital systems","Licensed in 3 states with expansion potential","Recurring revenue from long-term care plans","Specialized in high-growth senior care segment"],
+    weaknesses: ["Heavy reliance on manual scheduling and dispatch","Limited digital patient engagement tools","High caregiver turnover affecting continuity of care","Compliance documentation partially paper-based","No centralized electronic health record integration"],
+    operationalRisks: [
+      {category:"Staffing",level:"high",explanation:"Caregiver turnover of 38% with difficulty recruiting in competitive market.",impact:"Patient continuity disrupted, increased training costs, quality concerns.",suggestedAction:"Implement caregiver retention and referral incentive program."},
+      {category:"Compliance",level:"high",explanation:"CMS documentation requirements partially managed via paper records.",impact:"Audit risk, potential reimbursement delays or penalties.",suggestedAction:"Digitize all compliance documentation and implement automated audit trails."},
+      {category:"Workflow inefficiency",level:"medium",explanation:"Caregiver schedules built manually with phone-based shift changes.",impact:"Inefficient routing, caregiver burnout, missed visits.",suggestedAction:"Deploy automated scheduling and shift management platform."}
+    ],
+    technologyRisks: [
+      {category:"Lack of system integration",level:"high",explanation:"Patient records, scheduling, billing, and payroll operate in separate systems.",impact:"Data entry duplication, billing errors, delayed cash collection.",suggestedAction:"Implement integrated home health management platform."},
+      {category:"Manual data entry",level:"medium",explanation:"Clinical notes and visit documentation entered after shift, often from memory.",impact:"Incomplete documentation, compliance gaps, liability exposure.",suggestedAction:"Deploy mobile documentation app with voice-to-text and structured templates."},
+      {category:"Inadequate backups",level:"medium",explanation:"Backup process is manual and untested; no disaster recovery plan.",impact:"Potential permanent data loss in hardware failure or cyber incident.",suggestedAction:"Implement automated cloud backup with quarterly recovery testing."}
+    ],
+    growthOpportunities: [
+      {category:"Market expansion",description:"Expand services to 2 additional states via licensing and partnerships",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term",reasoning:"Significant regulatory hurdles but large addressable market."},
+      {category:"Digital channels",description:"Patient and family portal for care plan visibility and communication",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"short-term",reasoning:"Improves satisfaction and reduces inbound call volume."},
+      {category:"Service expansion",description:"Add remote patient monitoring and telehealth services",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"High-margin services with strong demand post-pandemic."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Labor efficiency",description:"AI-optimized caregiver scheduling and route planning",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Compliance",description:"Automated documentation and compliance monitoring",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Customer service",description:"Automated appointment reminders and family updates",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate"},
+      {category:"Decision-making",description:"Predictive analytics for readmission risk and care plan optimization",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the payer mix (Medicare, Medicaid, private insurance, private pay)?","What is the average length of stay and patient acquisition cost?","Are there any pending Medicare audits or clawback risks?"]},
+      {category:"Operational",questions:["What are the clinical outcome metrics compared to state averages?","What is the caregiver-to-patient ratio and overtime rate?","Are all required licenses and accreditations current across all states?"]},
+      {category:"Legal",questions:["Are there any malpractice claims or pending litigation?","What insurance coverage limits exist for professional liability?","Are employment contracts compliant with state healthcare worker regulations?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Verify all state licenses, CMS certifications, and accreditation status",priority:"critical",owner:"Compliance Officer",expectedOutcome:"Confirm regulatory standing before proceeding",dependency:"State licensing board responses",decisionRequired:"Any compliance gaps that would delay or prevent acquisition?"},
+      {timeframe:"30-days",action:"Conduct caregiver satisfaction and retention analysis",priority:"high",owner:"HR Director",expectedOutcome:"Identify root causes of turnover and retention strategy",dependency:"Employee survey and exit interview data",decisionRequired:"Investment in retention program vs. market-rate compensation adjustment?"},
+      {timeframe:"60-days",action:"Begin EHR and practice management system evaluation",priority:"high",owner:"Technology Advisor",expectedOutcome:"Selected platform with implementation timeline and budget",dependency:"Workflow analysis across all locations",decisionRequired:"Single integrated platform vs. best-of-breed approach?"},
+      {timeframe:"90-days",action:"Pilot remote patient monitoring program with highest-acuity patients",priority:"medium",owner:"Clinical Director",expectedOutcome:"Validate operational model and reimbursement pathway",dependency:"Reimbursement verification with payers",decisionRequired:"Scale RPM program across all service areas?"}
+    ],
+    executiveSummary: "Meridian Home Health offers strong growth potential (Score: 76/100) in the expanding senior care market with excellent clinical outcomes. However, staffing and compliance risks require immediate attention. AI readiness is limited due to fragmented systems, but the opportunity for operational automation is significant. Best AI return: automated scheduling and compliance documentation. Proceed with thorough regulatory due diligence.",
+    confidenceLevel: "Moderate confidence", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  },
+  {
+    id: "demo-4", name: "Apex Industrial Services", website: "apexindustrial.example.com",
+    industry: "Manufacturing & Industrial", headquarters: "Detroit, MI", revenueRange: "$100M – $250M",
+    employeeRange: "1,001 – 5,000", yearsInBusiness: 32, ownershipType: "Private Equity",
+    investmentStatus: "Mature / Stable", objective: "Operational efficiency",
+    opportunityScore: 64, riskScore: 58, technologyRiskScore: 72,
+    aiReadinessScore: 35, growthPotentialScore: 52, efficiencyPotentialScore: 78,
+    portfolioFitScore: 80, integrationComplexityScore: 60,
+    strengths: ["Long-term contracts with automotive OEMs and Tier 1 suppliers","Deep engineering expertise and ISO certifications","Diversified capabilities (machining, fabrication, assembly)","Strong safety record and union relationships","Established quality systems with automotive-grade standards"],
+    weaknesses: ["Heavy dependence on automotive sector cyclicality","Legacy ERP and MES systems from 2008","Limited digital marketing and new customer acquisition","Aging workforce with retirement wave approaching","Slow decision-making due to matrix organizational structure"],
+    operationalRisks: [
+      {category:"Leadership dependency",level:"high",explanation:"Three key division heads collectively manage 70% of revenue; all over 60 years old.",impact:"Knowledge loss and client relationship risk as retirements approach.",suggestedAction:"Implement structured succession planning and knowledge transfer program."},
+      {category:"Workforce risk",level:"high",explanation:"35% of skilled trades workforce eligible for retirement within 5 years.",impact:"Severe skills shortage, training bottleneck, production delays.",suggestedAction:"Launch apprenticeship program and partner with technical colleges."},
+      {category:"Customer concentration",level:"medium",explanation:"Top 3 customers represent 62% of annual revenue.",impact:"Significant revenue volatility if any major customer reduces orders.",suggestedAction:"Diversify customer base into aerospace, defense, and energy verticals."}
+    ],
+    technologyRisks: [
+      {category:"Legacy systems",level:"high",explanation:"ERP and MES systems are 16 years old with limited vendor support.",impact:"Inability to support modern manufacturing analytics and IoT integration.",suggestedAction:"Develop phased modernization roadmap with pilot on one production line."},
+      {category:"Technology debt",level:"high",explanation:"Custom-coded integrations between ERP, MES, and quality systems are undocumented.",impact:"High cost of maintenance, risk of failure, limited upgrade path.",suggestedAction:"Document all integrations and plan replacement with standard APIs."},
+      {category:"Limited automation",level:"medium",explanation:"Production monitoring relies on manual data collection and shift reports.",impact:"Delayed issue detection, quality escapes, inefficient resource use.",suggestedAction:"Deploy IoT sensors and real-time production monitoring dashboard."}
+    ],
+    growthOpportunities: [
+      {category:"Market expansion",description:"Diversify into aerospace, defense, and renewable energy manufacturing",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term",reasoning:"Reduces automotive cyclicality risk but requires certifications and capital."},
+      {category:"Product expansion",description:"Add value-added assembly and sub-system integration services",potentialImpact:"Moderate",implementationDifficulty:"medium",priority:"short-term",reasoning:"Leverages existing capabilities with higher margin potential."},
+      {category:"Partnerships",description:"Strategic partnership with additive manufacturing firm for prototyping",potentialImpact:"Moderate",implementationDifficulty:"medium",priority:"long-term",reasoning:"Positions company for next-generation manufacturing trends."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Labor efficiency",description:"Predictive maintenance and automated production monitoring",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term"},
+      {category:"Quality assurance",description:"Computer vision for automated defect detection",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term"},
+      {category:"Inventory",description:"AI-driven demand forecasting and automated procurement",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Training",description:"VR-based training for complex machining operations",potentialImpact:"Moderate",implementationDifficulty:"medium",priority:"short-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the revenue concentration by customer and by automotive program?","What capital expenditure is required for equipment modernization?","Are pension or retirement obligations fully funded?"]},
+      {category:"Operational",questions:["What is the current capacity utilization by facility?","What is the safety incident rate and workers compensation history?","Are there any environmental remediation liabilities?"]},
+      {category:"Technology",questions:["What is the documented technology roadmap and budget?","Are there any unsupported legacy systems critical to operations?","What is the current state of cybersecurity for industrial control systems?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Conduct leadership succession risk assessment and retention agreements",priority:"critical",owner:"HR / Operating Partner",expectedOutcome:"Retention plan for key division heads with knowledge transfer timeline",dependency:"Willingness of key leaders to participate",decisionRequired:"Offer retention bonuses and phased retirement plans?"},
+      {timeframe:"30-days",action:"Evaluate customer concentration risk and diversification strategy",priority:"high",owner:"Business Development",expectedOutcome:"Pipeline of non-automotive opportunities with 24-month target",dependency:"Market research and sales capacity",decisionRequired:"Invest in BD team and vertical marketing?"},
+      {timeframe:"60-days",action:"Begin Industry 4.0 readiness assessment with manufacturing consultant",priority:"high",owner:"Operations / Technology",expectedOutcome:"Roadmap for IoT, predictive maintenance, and digital twin pilot",dependency:"Budget and vendor selection",decisionRequired:"Phased approach vs. full facility modernization?"},
+      {timeframe:"90-days",action:"Launch workforce development and apprenticeship program",priority:"medium",owner:"HR / Operations",expectedOutcome:"Pipeline of skilled trades talent to replace retiring workforce",dependency:"Partnerships with technical colleges and union alignment",decisionRequired:"Fund program internally or seek state workforce grants?"}
+    ],
+    executiveSummary: "Apex Industrial Services is a stable, portfolio-fit company (Score: 64/100) with strong OEM relationships but faces significant workforce and technology risks. The approaching retirement wave is the most urgent concern. AI readiness is low due to legacy systems, but efficiency gains from predictive maintenance and automated quality inspection could be substantial. Prioritize leadership retention and workforce development before major technology investments.",
+    confidenceLevel: "Moderate confidence", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  },
+  {
+    id: "demo-5", name: "BlueRiver Financial Advisors", website: "blueriverfa.example.com",
+    industry: "Financial Services", headquarters: "New York, NY", revenueRange: "$25M – $50M",
+    employeeRange: "51 – 200", yearsInBusiness: 11, ownershipType: "Partnership",
+    investmentStatus: "Growth Stage", objective: "Technology modernization",
+    opportunityScore: 88, riskScore: 28, technologyRiskScore: 38,
+    aiReadinessScore: 72, growthPotentialScore: 81, efficiencyPotentialScore: 65,
+    portfolioFitScore: 70, integrationComplexityScore: 35,
+    strengths: ["Strong AUM growth trajectory with high-net-worth focus","Experienced partner team with established client relationships","Proprietary investment research process","Scalable fee-based revenue model","Strong compliance culture and regulatory standing"],
+    weaknesses: ["Client onboarding is manual and paper-intensive","Limited digital client engagement tools","Portfolio rebalancing partially manual","No AI-driven investment research or risk modeling","Marketing relies on referrals with limited digital presence"],
+    operationalRisks: [
+      {category:"Compliance",level:"medium",explanation:"Manual compliance monitoring with quarterly manual reviews.",impact:"Potential for missed regulatory changes or inadequate supervision.",suggestedAction:"Implement automated compliance surveillance and regulatory change management."},
+      {category:"Documentation",level:"medium",explanation:"Client files and advisory agreements stored in physical files and local drives.",impact:"Version control issues, retrieval delays, disaster recovery risk.",suggestedAction:"Deploy document management system with audit trails and retention policies."},
+      {category:"Management visibility",level:"low",explanation:"Partners have strong visibility into client relationships and pipeline.",impact:"Minimal risk; however, scalability limited by partner bandwidth.",suggestedAction:"Implement CRM with pipeline analytics and client health scoring."}
+    ],
+    technologyRisks: [
+      {category:"Lack of system integration",level:"medium",explanation:"Portfolio management, CRM, and accounting systems do not share data automatically.",impact:"Manual data transfer, reconciliation delays, client service friction.",suggestedAction:"Implement integrated wealth management platform with open APIs."},
+      {category:"Poor reporting visibility",level:"medium",explanation:"Client reports generated manually with limited customization.",impact:"Inability to offer personalized reporting at scale.",suggestedAction:"Deploy automated reporting engine with client self-service portal."},
+      {category:"Cybersecurity exposure",level:"medium",explanation:"Basic security measures; no formal SOC 2 or penetration testing program.",impact:"Regulatory scrutiny and client data protection concerns.",suggestedAction:"Engage cybersecurity firm for SEC-compliant security program."}
+    ],
+    growthOpportunities: [
+      {category:"Digital channels",description:"Digital client onboarding and account opening with e-signature",potentialImpact:"High",implementationDifficulty:"low",priority:"immediate",reasoning:"Reduces friction, accelerates conversion, improves client experience."},
+      {category:"Sales automation",description:"AI-driven lead scoring and personalized prospect outreach",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"Scales marketing beyond referral dependency."},
+      {category:"Product expansion",description:"Automated tax-loss harvesting and direct indexing services",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"High-margin services that differentiate from competitors."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Finance",description:"Automated portfolio rebalancing and tax optimization",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Customer service",description:"AI-powered client inquiry routing and self-service portal",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate"},
+      {category:"Decision-making",description:"AI-driven investment research synthesis and risk modeling",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term"},
+      {category:"Compliance",description:"Automated surveillance and regulatory filing preparation",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the revenue breakdown between AUM fees, commissions, and other income?","What is the client retention rate and average account size trend?","Are there any conflicts of interest or soft-dollar arrangements?"]},
+      {category:"Operational",questions:["What is the current advisor-to-client ratio?","What is the average client onboarding time?","Are all advisors properly licensed and registered?"]},
+      {category:"Technology",questions:["What is the current technology stack and vendor contracts?","Is there a business continuity and disaster recovery plan?","What cybersecurity framework is in place?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Verify all regulatory registrations, licenses, and disciplinary history",priority:"critical",owner:"Compliance Officer",expectedOutcome:"Clean regulatory record confirmed",dependency:"FINRA and SEC database checks",decisionRequired:"Any regulatory issues that would impact acquisition?"},
+      {timeframe:"30-days",action:"Evaluate technology platform for integrated wealth management",priority:"high",owner:"Technology Advisor",expectedOutcome:"Selected platform with migration timeline and cost",dependency:"Integration requirements with custodians",decisionRequired:"All-in-one platform vs. best-of-breed integration?"},
+      {timeframe:"60-days",action:"Develop digital client experience roadmap (onboarding, portal, reporting)",priority:"high",owner:"Client Experience Lead",expectedOutcome:"Prioritized feature list with 6-month rollout plan",dependency:"Technology platform selection",decisionRequired:"Build custom features or configure platform-native tools?"},
+      {timeframe:"90-days",action:"Launch AI-driven research and risk modeling pilot",priority:"medium",owner:"Investment Team",expectedOutcome:"Validate AI model accuracy against existing research process",dependency:"Data availability and model training",decisionRequired:"Integrate AI insights into advisory process?"}
+    ],
+    executiveSummary: "BlueRiver Financial Advisors is the strongest opportunity in the portfolio (Score: 88/100) with excellent growth trajectory, low risk, and high AI readiness. The firm is well-positioned for technology modernization that can scale client service and differentiate its offering. Immediate priorities: streamline onboarding and deploy integrated wealth management platform. AI-driven research and automated rebalancing offer the highest return potential.",
+    confidenceLevel: "High confidence", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  },
+  {
+    id: "demo-6", name: "Everwell Consumer Brands", website: "everwellcb.example.com",
+    industry: "Consumer Goods & Retail", headquarters: "Los Angeles, CA", revenueRange: "$10M – $25M",
+    employeeRange: "51 – 200", yearsInBusiness: 7, ownershipType: "Venture Capital-backed",
+    investmentStatus: "Growth Stage", objective: "Growth & expansion",
+    opportunityScore: 69, riskScore: 67, technologyRiskScore: 62,
+    aiReadinessScore: 48, growthPotentialScore: 78, efficiencyPotentialScore: 55,
+    portfolioFitScore: 58, integrationComplexityScore: 50,
+    strengths: ["Strong direct-to-consumer brand with loyal customer base","High social media engagement and influencer partnerships","Innovative product formulations with patent applications","Agile team with strong e-commerce execution","Data-rich customer insights from DTC channel"],
+    weaknesses: ["Unproven path to profitability; currently burning cash","Limited retail distribution beyond DTC","High customer acquisition cost with declining returns","Supply chain dependent on single overseas manufacturer","Limited operational experience at scale"],
+    operationalRisks: [
+      {category:"Financial reporting",level:"high",explanation:"Financial controls are informal; monthly close takes 45 days.",impact:"Inability to make timely decisions; potential audit issues.",suggestedAction:"Hire experienced CFO and implement monthly close process within 30 days."},
+      {category:"Supply chain",level:"high",explanation:"Single manufacturer in Asia with 90-day lead times and no backup.",impact:"Severe disruption risk from geopolitical, quality, or logistics issues.",suggestedAction:"Identify and qualify secondary manufacturer immediately."},
+      {category:"Sales operations",level:"medium",explanation:"Sales forecasting based on intuition rather than data-driven models.",impact:"Inventory mismatches, stockouts, excess inventory write-offs.",suggestedAction:"Implement demand forecasting with historical and market data."}
+    ],
+    technologyRisks: [
+      {category:"Fragmented software",level:"high",explanation:"E-commerce, inventory, marketing, and finance run on disconnected tools.",impact:"No single source of truth; manual reconciliation; delayed insights.",suggestedAction:"Evaluate unified commerce platform or build integrated data warehouse."},
+      {category:"Weak data governance",level:"medium",explanation:"Customer data spread across multiple platforms with inconsistent privacy practices.",impact:"GDPR/CCPA compliance risk; inability to leverage data for AI.",suggestedAction:"Implement customer data platform with privacy compliance framework."},
+      {category:"Limited automation",level:"medium",explanation:"Marketing campaigns, inventory replenishment, and customer service largely manual.",impact:"Inability to scale operations without proportional headcount growth.",suggestedAction:"Deploy marketing automation, inventory automation, and chatbot support."}
+    ],
+    growthOpportunities: [
+      {category:"Market expansion",description:"Expand into retail partnerships (Sephora, Ulta, Target)",potentialImpact:"High",implementationDifficulty:"high",priority:"long-term",reasoning:"Massive revenue potential but requires trade marketing investment and margin compression."},
+      {category:"Digital channels",description:"Launch subscription model for core product line",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term",reasoning:"Improves unit economics and customer lifetime value."},
+      {category:"Partnerships",description:"Co-branding partnerships with complementary wellness brands",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate",reasoning:"Low-cost customer acquisition through shared audiences."}
+    ],
+    efficiencyOpportunities: [
+      {category:"Sales operations",description:"Automated demand forecasting and dynamic pricing",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Customer service",description:"AI chatbot for order status, returns, and product recommendations",potentialImpact:"Moderate",implementationDifficulty:"low",priority:"immediate"},
+      {category:"Marketing",description:"AI-driven ad spend optimization and audience targeting",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"},
+      {category:"Inventory",description:"Automated replenishment and safety stock optimization",potentialImpact:"High",implementationDifficulty:"medium",priority:"short-term"}
+    ],
+    dueDiligenceQuestions: [
+      {category:"Financial",questions:["What is the monthly burn rate and runway at current spending?","What is the true unit economics (CAC, LTV, contribution margin)?","Are there any outstanding convertible notes or warrant obligations?"]},
+      {category:"Operational",questions:["What is the current inventory turnover and days of supply?","What is the product return and defect rate?","Are there any pending product liability claims?"]},
+      {category:"Technology",questions:["What is the current e-commerce platform and customization level?","How is customer data managed for privacy compliance?","What is the technology team structure and key-person risk?"]}
+    ],
+    recommendedActions: [
+      {timeframe:"immediate",action:"Verify cash runway and path to profitability model",priority:"critical",owner:"CFO / Financial Advisor",expectedOutcome:"Confirmed 12-month runway with credible profitability plan",dependency:"Access to detailed financial model and cap table",decisionRequired:"Additional capital requirement and valuation impact?"},
+      {timeframe:"30-days",action:"Identify and qualify secondary manufacturer",priority:"critical",owner:"Supply Chain / Operations",expectedOutcome:"Backup manufacturer with production samples and terms",dependency:"Product specifications and quality standards",decisionRequired:"Diversify manufacturing geographically or dual-source?"},
+      {timeframe:"60-days",action:"Implement unified data platform for e-commerce, inventory, and marketing",priority:"high",owner:"Technology / Data",expectedOutcome:"Single source of truth with automated reporting",dependency:"Vendor selection and data migration planning",decisionRequired:"Build data warehouse or adopt packaged CDP solution?"},
+      {timeframe:"90-days",action:"Launch subscription pilot with existing high-LTV customers",priority:"medium",owner:"Marketing / Product",expectedOutcome:"Validate subscription economics and churn assumptions",dependency:"Subscription platform integration",decisionRequired:"Subscription-only or hybrid model?"}
+    ],
+    executiveSummary: "Everwell Consumer Brands is a high-growth, high-risk opportunity (Score: 69/100) with strong brand equity but unproven profitability. Supply chain concentration and informal financial controls are the most serious risks. AI readiness is moderate; the best returns will come from marketing automation and demand forecasting. Proceed only with confirmed path to profitability and immediate supply chain diversification.",
+    confidenceLevel: "Preliminary assessment", evidenceSources: ["Demonstration data","AI-generated inference"],
+    createdAt: "2026-07-25"
+  }
+];
+
+// ==================== STATE ====================
+let portfolio = [...demoCompanies];
+let currentAnalysis = null;
+let reports = [];
+
+// ==================== UTILITIES ====================
+function getScoreColor(score) {
+  if (score >= 75) return 'var(--accent-emerald)';
+  if (score >= 50) return 'var(--accent-amber)';
+  return 'var(--accent-red)';
+}
+
+function getScoreBadge(score) {
+  if (score >= 75) return '<span class="badge badge-emerald">Strong</span>';
+  if (score >= 50) return '<span class="badge badge-amber">Moderate</span>';
+  return '<span class="badge badge-red">High Risk</span>';
+}
+
+function getRiskLevel(score) {
+  if (score <= 35) return { label: 'Low', color: 'var(--accent-emerald)', class: 'badge-emerald' };
+  if (score <= 55) return { label: 'Medium', color: 'var(--accent-amber)', class: 'badge-amber' };
+  return { label: 'High', color: 'var(--accent-red)', class: 'badge-red' };
+}
+
+function getPriorityLabel(company) {
+  if (company.opportunityScore >= 80 && company.riskScore <= 40) return 'Invest';
+  if (company.opportunityScore >= 70 && company.riskScore <= 50) return 'Expand';
+  if (company.aiReadinessScore >= 60) return 'Modernize';
+  if (company.riskScore >= 60) return 'Stabilize';
+  if (company.opportunityScore >= 60) return 'Monitor';
+  return 'Review';
+}
+
+function getPriorityBadge(label) {
+  const map = {
+    'Invest': 'badge-emerald',
+    'Expand': 'badge-blue',
+    'Modernize': 'badge-purple',
+    'Stabilize': 'badge-amber',
+    'Monitor': 'badge-blue',
+    'Review': 'badge-red',
+    'Exit consideration': 'badge-red'
+  };
+  return `<span class="badge ${map[label] || 'badge-blue'}">${label}</span>`;
+}
+
+function renderScoreRing(score, size = 120, strokeWidth = 8) {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / 100) * circumference;
+  const color = getScoreColor(score);
+  return `
+    <div class="score-ring" style="width:${size}px;height:${size}px;">
+      <svg width="${size}" height="${size}">
+        <circle class="score-ring-bg" cx="${size/2}" cy="${size/2}" r="${radius}" stroke-width="${strokeWidth}"/>
+        <circle class="score-ring-fill" cx="${size/2}" cy="${size/2}" r="${radius}" stroke-width="${strokeWidth}"
+          stroke="${color}" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/>
+      </svg>
+      <div style="position:absolute;text-align:center;">
+        <div class="score-value" style="color:${color}">${score}</div>
+        <div class="score-label">Score</div>
+      </div>
+    </div>
+  `;
+}
+
+function heatColor(value) {
+  if (value >= 80) return 'rgba(16,185,129,0.7)';
+  if (value >= 60) return 'rgba(16,185,129,0.4)';
+  if (value >= 45) return 'rgba(245,158,11,0.5)';
+  if (value >= 30) return 'rgba(245,158,11,0.3)';
+  return 'rgba(239,68,68,0.5)';
+}
+
+function heatTextColor(value) {
+  return value >= 60 ? '#fff' : 'var(--text-primary)';
+}
+
+// ==================== TAB NAVIGATION ====================
+function switchTab(tabId) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tabId);
+  });
+  document.querySelectorAll('.mobile-menu .nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tabId);
+  });
+  window.scrollTo(0, 0);
+  if (tabId === 'dashboard') renderDashboard();
+  if (tabId === 'portfolio') renderPortfolio();
+  if (tabId === 'reports') renderReports();
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('show');
+}
+
+// ==================== DASHBOARD ====================
+function renderDashboard() {
+  const companies = portfolio.length ? portfolio : demoCompanies;
+  const avgOpp = Math.round(companies.reduce((a,c) => a + c.opportunityScore, 0) / companies.length);
+  const avgAI = Math.round(companies.reduce((a,c) => a + c.aiReadinessScore, 0) / companies.length);
+  const attentionCount = companies.filter(c => c.riskScore >= 55).length;
+  const highAICount = companies.filter(c => c.aiReadinessScore >= 60).length;
+
+  // Metrics
+  document.getElementById('dashMetrics').innerHTML = `
+    <div class="metric-card">
+      <div class="metric-value" style="color:var(--accent-blue)">${companies.length}</div>
+      <div class="metric-label">Companies</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:${getScoreColor(avgOpp)}">${avgOpp}</div>
+      <div class="metric-label">Avg Opportunity</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:${getScoreColor(avgAI)}">${avgAI}</div>
+      <div class="metric-label">Avg AI Readiness</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:var(--accent-red)">${attentionCount}</div>
+      <div class="metric-label">Need Attention</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:var(--accent-emerald)">${highAICount}</div>
+      <div class="metric-label">High AI Potential</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:var(--accent-amber)">${companies.filter(c => c.riskScore >= 50 && c.riskScore < 55).length + attentionCount}</div>
+      <div class="metric-label">Risk Alerts</div>
+    </div>
+  `;
+
+  // Priority Cards
+  const sortedByOpp = [...companies].sort((a,b) => b.opportunityScore - a.opportunityScore);
+  const highestPotential = sortedByOpp[0];
+  const immediateAttention = [...companies].sort((a,b) => b.riskScore - a.riskScore)[0];
+  const bestAI = [...companies].sort((a,b) => b.aiReadinessScore - a.aiReadinessScore)[0];
+
+  document.getElementById('dashPriorityCards').innerHTML = `
+    <div class="priority-card emerald" onclick="openCompanyModal('${highestPotential.id}')">
+      <div class="priority-header">
+        <div class="priority-icon" style="background:rgba(16,185,129,0.15)">🚀</div>
+        <div class="priority-title">Highest Potential</div>
+      </div>
+      <div class="priority-company">${highestPotential.name}</div>
+      <div class="priority-desc">Opportunity Score: <strong style="color:var(--accent-emerald)">${highestPotential.opportunityScore}/100</strong> — Strongest combination of growth, strength, and strategic fit.</div>
+    </div>
+    <div class="priority-card red" onclick="openCompanyModal('${immediateAttention.id}')">
+      <div class="priority-header">
+        <div class="priority-icon" style="background:rgba(239,68,68,0.15)">🚨</div>
+        <div class="priority-title">Immediate Attention</div>
+      </div>
+      <div class="priority-company">${immediateAttention.name}</div>
+      <div class="priority-desc">Risk Score: <strong style="color:var(--accent-red)">${immediateAttention.riskScore}/100</strong> — Most serious operational, financial, or technology risk.</div>
+    </div>
+    <div class="priority-card blue" onclick="openCompanyModal('${bestAI.id}')">
+      <div class="priority-header">
+        <div class="priority-icon" style="background:rgba(59,130,246,0.15)">🤖</div>
+        <div class="priority-title">Best AI Return</div>
+      </div>
+      <div class="priority-company">${bestAI.name}</div>
+      <div class="priority-desc">AI Readiness: <strong style="color:var(--accent-blue)">${bestAI.aiReadinessScore}/100</strong> — Focused AI implementation could create fastest operational benefit.</div>
+    </div>
+  `;
+
+  // Table
+  renderDashTable();
+
+  // Heat Map
+  const metrics = ['Growth','Risk','Tech Risk','AI Ready','Portfolio Fit','Complexity'];
+  let heatHTML = '<div class="heat-map" style="grid-template-columns: 140px repeat(' + companies.length + ', 1fr);">';
+  heatHTML += '<div class="heat-cell header">Company</div>';
+  companies.forEach(c => heatHTML += `<div class="heat-cell header">${c.name.split(' ')[0]}</div>`);
+
+  const rows = [
+    {label:'Growth Potential', key:'growthPotentialScore'},
+    {label:'Opportunity Score', key:'opportunityScore'},
+    {label:'Risk Level', key:'riskScore', invert:true},
+    {label:'Technology Risk', key:'technologyRiskScore', invert:true},
+    {label:'AI Readiness', key:'aiReadinessScore'},
+    {label:'Portfolio Fit', key:'portfolioFitScore'},
+    {label:'Integration Complexity', key:'integrationComplexityScore', invert:true}
+  ];
+
+  rows.forEach(row => {
+    heatHTML += `<div class="heat-cell company-label">${row.label}</div>`;
+    companies.forEach(c => {
+      let val = c[row.key];
+      if (row.invert) val = 100 - val;
+      heatHTML += `<div class="heat-cell" style="background:${heatColor(val)};color:${heatTextColor(val)}" title="${c.name}: ${c[row.key]}">${c[row.key]}</div>`;
+    });
+  });
+  heatHTML += '</div>';
+  document.getElementById('dashHeatMap').innerHTML = heatHTML;
+
+  // AI Advisor
+  const recs = generatePortfolioRecommendations(companies);
+  document.getElementById('dashAdvisor').innerHTML = recs.slice(0, 3).map(r => `
+    <div class="advisor-rec">
+      <div class="advisor-rec-title"><span style="color:var(--accent-blue)">▸</span> ${r.recommendation}</div>
+      <div class="advisor-rec-desc">${r.whyItMatters} <strong>Affected:</strong> ${r.companiesAffected.join(', ')}. <span style="color:var(--text-muted)">Confidence: ${r.confidenceLevel}</span></div>
+    </div>
+  `).join('');
+
+  // Features Grid
+  const features = [
+    {icon:'🔍',title:'Company Analysis',desc:'Deep intelligence on individual companies including opportunity scoring, risk assessment, and AI readiness.'},
+    {icon:'📊',title:'Portfolio Comparison',desc:'Side-by-side comparison across opportunity, risk, AI readiness, and strategic fit dimensions.'},
+    {icon:'🤖',title:'AI Readiness',desc:'Evaluate data, process, technology, and leadership readiness for AI implementation.'},
+    {icon:'⚡',title:'Efficiency Opportunities',desc:'Identify where automation, analytics, and workflow redesign can improve performance.'},
+    {icon:'🛡️',title:'Risk Analysis',desc:'Operational, technology, leadership, and compliance risk evaluation with mitigation strategies.'},
+    {icon:'📋',title:'Due Diligence',desc:'Categorized question lists for financial, operational, technology, and legal review.'},
+    {icon:'🎯',title:'Action Planning',desc:'Prioritized recommendations organized by immediate, 30-day, 60-day, and 90-day horizons.'},
+    {icon:'📄',title:'Executive Summary',desc:'Board-ready summaries with key findings, risks, opportunities, and recommended decisions.'}
+  ];
+  document.getElementById('featuresGrid').innerHTML = features.map(f => `
+    <div class="card" style="text-align:center;padding:28px 20px;">
+      <div style="font-size:32px;margin-bottom:12px;">${f.icon}</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">${f.title}</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${f.desc}</div>
+    </div>
+  `).join('');
+
+  // Audience
+  const audiences = [
+    'Private Equity','Family Offices','Holding Companies','Business Brokers','Search Funds',
+    'Acquisition Entrepreneurs','Corporate Development','Venture Studios','Multi-Business Owners','Fractional Executives'
+  ];
+  document.getElementById('audienceGrid').innerHTML = audiences.map(a => `
+    <div class="card" style="text-align:center;padding:20px 12px;font-size:13px;font-weight:600;">${a}</div>
+  `).join('');
+  document.getElementById('aboutAudience').innerHTML = audiences.map(a => `
+    <div class="card" style="text-align:center;padding:20px 12px;font-size:13px;font-weight:600;">${a}</div>
+  `).join('');
+
+  // How it works
+  const steps = [
+    {num:'01',title:'Enter Company Details',desc:'Input company information, objectives, and known concerns. Or load demonstration data instantly.'},
+    {num:'02',title:'AI Intelligence Generation',desc:'The platform evaluates opportunity, risk, AI readiness, and growth potential using structured scoring logic.'},
+    {num:'03',title:'Review Full Report',desc:'Explore strengths, weaknesses, risks, opportunities, due-diligence questions, and recommended actions.'},
+    {num:'04',title:'Build Portfolio View',desc:'Add multiple companies to compare, rank, and identify portfolio-wide priorities and AI investment opportunities.'}
+  ];
+  document.getElementById('howItWorks').innerHTML = steps.map(s => `
+    <div class="card" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;font-size:64px;font-weight:800;color:rgba(255,255,255,0.03);line-height:1;">${s.num}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent-blue);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Step ${s.num}</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:8px;">${s.title}</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderDashTable() {
+  const filter = document.getElementById('dashFilterIndustry')?.value || 'all';
+  const companies = portfolio.length ? portfolio : demoCompanies;
+  const filtered = filter === 'all' ? companies : companies.filter(c => c.industry === filter);
+
+  // Populate filter options
+  const industries = [...new Set(companies.map(c => c.industry))];
+  const select = document.getElementById('dashFilterIndustry');
+  if (select && select.options.length <= 1) {
+    industries.forEach(i => {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = i;
+      select.appendChild(opt);
+    });
+  }
+
+  let html = `<tr><th>Company</th><th>Industry</th><th>Opp Score</th><th>Risk</th><th>AI Ready</th><th>Growth</th><th>Efficiency</th><th>Priority</th><th>Action</th></tr>`;
+  filtered.forEach(c => {
+    html += `<tr onclick="openCompanyModal('${c.id}')">
+      <td><strong>${c.name}</strong></td>
+      <td>${c.industry}</td>
+      <td><span style="color:${getScoreColor(c.opportunityScore)};font-weight:700">${c.opportunityScore}</span></td>
+      <td>${getScoreBadge(100 - c.riskScore)}</td>
+      <td><span style="color:${getScoreColor(c.aiReadinessScore)};font-weight:700">${c.aiReadinessScore}</span></td>
+      <td><span style="color:${getScoreColor(c.growthPotentialScore)};font-weight:700">${c.growthPotentialScore}</span></td>
+      <td><span style="color:${getScoreColor(c.efficiencyPotentialScore)};font-weight:700">${c.efficiencyPotentialScore}</span></td>
+      <td>${getPriorityBadge(getPriorityLabel(c))}</td>
+      <td><button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="event.stopPropagation();openCompanyModal('${c.id}')">View</button></td>
+    </tr>`;
+  });
+  document.getElementById('dashTable').innerHTML = html;
+}
+
+// ==================== PORTFOLIO VIEW ====================
+function renderPortfolio() {
+  const companies = portfolio;
+  if (!companies.length) {
+    document.getElementById('portfolioMetrics').innerHTML = `
+      <div class="card" style="grid-column:1/-1;text-align:center;padding:60px 24px;">
+        <div style="font-size:48px;margin-bottom:16px;">📂</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">No companies in portfolio</div>
+        <div style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;">Load demonstration data or analyze a company to get started.</div>
+        <button class="btn btn-primary" onclick="loadDemoPortfolio()">Load Demo Portfolio</button>
+      </div>
+    `;
+    document.getElementById('portfolioPriorityCards').innerHTML = '';
+    document.getElementById('portfolioTable').innerHTML = '';
+    document.getElementById('portfolioHeatMap').innerHTML = '';
+    document.getElementById('portfolioRankings').innerHTML = '';
+    document.getElementById('portfolioAdvisor').innerHTML = '';
+    return;
+  }
+
+  const avgOpp = Math.round(companies.reduce((a,c) => a + c.opportunityScore, 0) / companies.length);
+  const avgAI = Math.round(companies.reduce((a,c) => a + c.aiReadinessScore, 0) / companies.length);
+  const attentionCount = companies.filter(c => c.riskScore >= 55).length;
+  const highAICount = companies.filter(c => c.aiReadinessScore >= 60).length;
+  const riskLevel = getRiskLevel(Math.round(companies.reduce((a,c) => a + c.riskScore, 0) / companies.length));
+
+  // Metrics
+  document.getElementById('portfolioMetrics').innerHTML = `
+    <div class="metric-card"><div class="metric-value" style="color:var(--accent-blue)">${companies.length}</div><div class="metric-label">Companies</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:${getScoreColor(avgOpp)}">${avgOpp}</div><div class="metric-label">Avg Opportunity</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:${getScoreColor(avgAI)}">${avgAI}</div><div class="metric-label">Avg AI Readiness</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--accent-red)">${attentionCount}</div><div class="metric-label">Need Attention</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--accent-emerald)">${highAICount}</div><div class="metric-label">High AI Potential</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:${riskLevel.color}">${riskLevel.label}</div><div class="metric-label">Portfolio Risk</div></div>
+  `;
+
+  // Priority Cards
+  const sortedByOpp = [...companies].sort((a,b) => b.opportunityScore - a.opportunityScore);
+  const highestPotential = sortedByOpp[0];
+  const immediateAttention = [...companies].sort((a,b) => b.riskScore - a.riskScore)[0];
+  const bestAI = [...companies].sort((a,b) => b.aiReadinessScore - a.aiReadinessScore)[0];
+  const strongestFit = [...companies].sort((a,b) => b.portfolioFitScore - a.portfolioFitScore)[0];
+  const highestIntegration = [...companies].sort((a,b) => b.integrationComplexityScore - a.integrationComplexityScore)[0];
+
+  document.getElementById('portfolioPriorityCards').innerHTML = `
+    <div class="priority-card emerald" onclick="openCompanyModal('${highestPotential.id}')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(16,185,129,0.15)">🚀</div><div class="priority-title">Highest Potential</div></div>
+      <div class="priority-company">${highestPotential.name}</div>
+      <div class="priority-desc">Score: <strong style="color:var(--accent-emerald)">${highestPotential.opportunityScore}/100</strong> — Best combination of growth, strength, and fit.</div>
+    </div>
+    <div class="priority-card red" onclick="openCompanyModal('${immediateAttention.id}')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(239,68,68,0.15)">🚨</div><div class="priority-title">Immediate Attention</div></div>
+      <div class="priority-company">${immediateAttention.name}</div>
+      <div class="priority-desc">Risk: <strong style="color:var(--accent-red)">${immediateAttention.riskScore}/100</strong> — Most serious risk requiring urgent review.</div>
+    </div>
+    <div class="priority-card blue" onclick="openCompanyModal('${bestAI.id}')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(59,130,246,0.15)">🤖</div><div class="priority-title">Best AI Return</div></div>
+      <div class="priority-company">${bestAI.name}</div>
+      <div class="priority-desc">Readiness: <strong style="color:var(--accent-blue)">${bestAI.aiReadinessScore}/100</strong> — Fastest path to measurable AI benefit.</div>
+    </div>
+    <div class="priority-card purple" onclick="openCompanyModal('${strongestFit.id}')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(139,92,246,0.15)">🧩</div><div class="priority-title">Strongest Portfolio Fit</div></div>
+      <div class="priority-company">${strongestFit.name}</div>
+      <div class="priority-desc">Fit: <strong style="color:var(--accent-purple)">${strongestFit.portfolioFitScore}/100</strong> — Best strategic relationship to portfolio.</div>
+    </div>
+    <div class="priority-card amber" onclick="openCompanyModal('${highestIntegration.id}')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(245,158,11,0.15)">⚠️</div><div class="priority-title">Highest Integration Risk</div></div>
+      <div class="priority-company">${highestIntegration.name}</div>
+      <div class="priority-desc">Complexity: <strong style="color:var(--accent-amber)">${highestIntegration.integrationComplexityScore}/100</strong> — May be hardest to integrate or manage.</div>
+    </div>
+    <div class="priority-card" style="border-top:3px solid var(--accent-cyan);" onclick="switchTab('analyze')">
+      <div class="priority-header"><div class="priority-icon" style="background:rgba(6,182,212,0.15)">💡</div><div class="priority-title">Portfolio-Wide Opportunity</div></div>
+      <div class="priority-company">Shared Customer-Service AI</div>
+      <div class="priority-desc">Deploy AI-powered customer service across <strong>${companies.length}</strong> portfolio companies for unified support quality and cost reduction.</div>
+    </div>
+  `;
+
+  // Table
+  renderPortfolioTable();
+
+  // Heat Map
+  const metrics = ['Growth','Risk','Tech','AI','Fit','Complex'];
+  let heatHTML = '<div class="heat-map" style="grid-template-columns: 140px repeat(' + companies.length + ', 1fr);">';
+  heatHTML += '<div class="heat-cell header">Metric</div>';
+  companies.forEach(c => heatHTML += `<div class="heat-cell header" style="font-size:10px;">${c.name.split(' ')[0]}</div>`);
+
+  const rows = [
+    {label:'Growth Potential', key:'growthPotentialScore'},
+    {label:'Opportunity', key:'opportunityScore'},
+    {label:'Risk Level', key:'riskScore', invert:true},
+    {label:'Tech Risk', key:'technologyRiskScore', invert:true},
+    {label:'AI Readiness', key:'aiReadinessScore'},
+    {label:'Portfolio Fit', key:'portfolioFitScore'},
+    {label:'Integration', key:'integrationComplexityScore', invert:true}
+  ];
+
+  rows.forEach(row => {
+    heatHTML += `<div class="heat-cell company-label">${row.label}</div>`;
+    companies.forEach(c => {
+      let val = c[row.key];
+      if (row.invert) val = 100 - val;
+      heatHTML += `<div class="heat-cell" style="background:${heatColor(val)};color:${heatTextColor(val)}" title="${c.name}: ${c[row.key]}">${c[row.key]}</div>`;
+    });
+  });
+  heatHTML += '</div>';
+  document.getElementById('portfolioHeatMap').innerHTML = heatHTML;
+
+  // Rankings
+  const rankings = [
+    {label:'Best Overall Opportunity', sort:(a,b)=>b.opportunityScore-a.opportunityScore},
+    {label:'Highest Growth Potential', sort:(a,b)=>b.growthPotentialScore-a.growthPotentialScore},
+    {label:'Highest Operational Risk', sort:(a,b)=>b.riskScore-a.riskScore},
+    {label:'Highest Technology Risk', sort:(a,b)=>b.technologyRiskScore-a.technologyRiskScore},
+    {label:'Most AI-Ready', sort:(a,b)=>b.aiReadinessScore-a.aiReadinessScore},
+    {label:'Greatest Efficiency Opportunity', sort:(a,b)=>b.efficiencyPotentialScore-a.efficiencyPotentialScore},
+    {label:'Best Modernization Candidate', sort:(a,b)=>b.technologyRiskScore-a.technologyRiskScore},
+    {label:'Most Urgent Leadership Attention', sort:(a,b)=>b.riskScore-a.riskScore},
+    {label:'Best Cross-Portfolio Synergy', sort:(a,b)=>b.portfolioFitScore-a.portfolioFitScore},
+    {label:'Most Difficult Integration', sort:(a,b)=>b.integrationComplexityScore-a.integrationComplexityScore}
+  ];
+
+  document.getElementById('portfolioRankings').innerHTML = rankings.map(r => {
+    const winner = [...companies].sort(r.sort)[0];
+    return `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openCompanyModal('${winner.id}')">
+        <div>
+          <div style="font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">${r.label}</div>
+          <div style="font-size:14px;font-weight:600;">${winner.name}</div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:var(--accent-blue)">${r.sort === rankings[3].sort || r.sort === rankings[2].sort || r.sort === rankings[9].sort ? winner[Object.keys(winner).find(k => k.includes(r.label.split(' ')[1].toLowerCase()))] || winner.riskScore : winner[Object.keys(winner).find(k => k.includes(r.label.split(' ')[0].toLowerCase()))] || winner.opportunityScore}/100</div>
+      </div>
+    `;
+  }).join('');
+
+  // AI Advisor
+  const recs = generatePortfolioRecommendations(companies);
+  document.getElementById('portfolioAdvisor').innerHTML = recs.map(r => `
+    <div class="advisor-rec">
+      <div class="advisor-rec-title"><span style="color:var(--accent-blue)">▸</span> ${r.recommendation}</div>
+      <div class="advisor-rec-desc">
+        ${r.whyItMatters}<br>
+        <strong>Companies affected:</strong> ${r.companiesAffected.join(', ')}<br>
+        <strong>Expected benefit:</strong> ${r.expectedBenefit}<br>
+        <strong>Next step:</strong> ${r.suggestedNextStep}<br>
+        <span style="color:var(--text-muted)">Confidence: ${r.confidenceLevel}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // Scenario
+  const scenarioSelect = document.getElementById('scenarioCompany');
+  scenarioSelect.innerHTML = companies.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  renderScenarioOptions();
+}
+
+function renderPortfolioTable() {
+  const industryFilter = document.getElementById('portFilterIndustry')?.value || 'all';
+  const riskFilter = document.getElementById('portFilterRisk')?.value || 'all';
+  const priorityFilter = document.getElementById('portFilterPriority')?.value || 'all';
+
+  let filtered = [...portfolio];
+  if (industryFilter !== 'all') filtered = filtered.filter(c => c.industry === industryFilter);
+  if (riskFilter !== 'all') {
+    filtered = filtered.filter(c => {
+      if (riskFilter === 'low') return c.riskScore <= 35;
+      if (riskFilter === 'medium') return c.riskScore > 35 && c.riskScore <= 55;
+      return c.riskScore > 55;
+    });
+  }
+  if (priorityFilter !== 'all') filtered = filtered.filter(c => getPriorityLabel(c) === priorityFilter);
+
+  // Populate industry filter
+  const industries = [...new Set(portfolio.map(c => c.industry))];
+  const select = document.getElementById('portFilterIndustry');
+  if (select && select.options.length <= 1) {
+    industries.forEach(i => {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = i;
+      select.appendChild(opt);
+    });
+  }
+
+  let html = `<tr><th>Company</th><th>Industry</th><th>Opp</th><th>Risk</th><th>AI</th><th>Growth</th><th>Efficiency</th><th>Fit</th><th>Tech Risk</th><th>Priority</th><th>Action</th></tr>`;
+  filtered.forEach(c => {
+    html += `<tr onclick="openCompanyModal('${c.id}')">
+      <td><strong>${c.name}</strong></td>
+      <td>${c.industry}</td>
+      <td><span style="color:${getScoreColor(c.opportunityScore)};font-weight:700">${c.opportunityScore}</span></td>
+      <td>${getScoreBadge(100 - c.riskScore)}</td>
+      <td><span style="color:${getScoreColor(c.aiReadinessScore)};font-weight:700">${c.aiReadinessScore}</span></td>
+      <td><span style="color:${getScoreColor(c.growthPotentialScore)};font-weight:700">${c.growthPotentialScore}</span></td>
+      <td><span style="color:${getScoreColor(c.efficiencyPotentialScore)};font-weight:700">${c.efficiencyPotentialScore}</span></td>
+      <td><span style="color:${getScoreColor(c.portfolioFitScore)};font-weight:700">${c.portfolioFitScore}</span></td>
+      <td><span style="color:${getScoreColor(100-c.technologyRiskScore)};font-weight:700">${c.technologyRiskScore}</span></td>
+      <td>${getPriorityBadge(getPriorityLabel(c))}</td>
+      <td><button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="event.stopPropagation();openCompanyModal('${c.id}')">View</button></td>
+    </tr>`;
+  });
+  document.getElementById('portfolioTable').innerHTML = html;
+}
+
+function generatePortfolioRecommendations(companies) {
+  const highRisk = companies.filter(c => c.riskScore >= 55);
+  const highAI = companies.filter(c => c.aiReadinessScore >= 55);
+  const highOpp = companies.filter(c => c.opportunityScore >= 75);
+  const recs = [];
+
+  if (highAI.length >= 2) {
+    recs.push({
+      recommendation: `Prioritize customer-service automation across ${highAI.length} portfolio companies.`,
+      whyItMatters: "Multiple companies have sufficient technology infrastructure to support AI-powered customer service, which could reduce support costs and improve satisfaction simultaneously.",
+      companiesAffected: highAI.map(c => c.name),
+      expectedBenefit: "15-25% reduction in customer service costs within 12 months",
+      suggestedNextStep: "Evaluate unified AI customer service platform for portfolio-wide deployment",
+      confidenceLevel: "Moderate confidence"
+    });
+  }
+
+  const techRisky = companies.filter(c => c.technologyRiskScore >= 60);
+  if (techRisky.length > 0) {
+    recs.push({
+      recommendation: `Begin technology modernization at ${techRisky[0].name}.`,
+      whyItMatters: "Legacy systems create security vulnerabilities, integration barriers, and limit AI readiness. Addressing the highest-risk technology environment first reduces portfolio-wide exposure.",
+      companiesAffected: [techRisky[0].name],
+      expectedBenefit: "Reduced cybersecurity risk and improved operational visibility",
+      suggestedNextStep: "Engage technology consultant for 90-day assessment and roadmap",
+      confidenceLevel: "High confidence"
+    });
+  }
+
+  const leaderRisk = companies.filter(c => c.operationalRisks.some(r => r.category === 'Leadership dependency' && r.level === 'high'));
+  if (leaderRisk.length > 0) {
+    recs.push({
+      recommendation: `Conduct leadership-dependency due diligence at ${leaderRisk[0].name}.`,
+      whyItMatters: "Founder or key-executive dependency is one of the most common causes of post-acquisition underperformance. Understanding the depth of this risk is critical before investment.",
+      companiesAffected: [leaderRisk[0].name],
+      expectedBenefit: "Clear succession plan and reduced key-person risk",
+      suggestedNextStep: "Request organizational chart, succession plan, and retention agreements",
+      confidenceLevel: "High confidence"
+    });
+  }
+
+  const growthOpp = companies.filter(c => c.growthPotentialScore >= 75 && c.riskScore < 60);
+  if (growthOpp.length > 0) {
+    recs.push({
+      recommendation: `Expand ${growthOpp[0].name} after resolving identified risks.`,
+      whyItMatters: "Strong growth potential combined with manageable risk creates an attractive expansion opportunity once operational concerns are addressed.",
+      companiesAffected: [growthOpp[0].name],
+      expectedBenefit: "Accelerated revenue growth with reduced downside risk",
+      suggestedNextStep: "Develop 90-day risk mitigation plan followed by growth investment",
+      confidenceLevel: "Moderate confidence"
+    });
+  }
+
+  if (companies.length >= 3) {
+    recs.push({
+      recommendation: "Centralize portfolio reporting before making additional acquisitions.",
+      whyItMatters: "With multiple portfolio companies, unified reporting enables faster decision-making, better capital allocation, and clearer performance tracking.",
+      companiesAffected: companies.map(c => c.name),
+      expectedBenefit: "Improved capital allocation and faster issue detection",
+      suggestedNextStep: "Define portfolio KPI framework and select reporting platform",
+      confidenceLevel: "High confidence"
+    });
+  }
+
+  const lowAI = companies.filter(c => c.aiReadinessScore < 45);
+  if (lowAI.length > 0) {
+    recs.push({
+      recommendation: `Delay major AI implementation at ${lowAI[0].name} until data systems are improved.`,
+      whyItMatters: "AI initiatives without proper data infrastructure typically fail or underdeliver. Building data foundations first yields better long-term returns.",
+      companiesAffected: [lowAI[0].name],
+      expectedBenefit: "Avoid wasted AI investment and build sustainable capability",
+      suggestedNextStep: "Data readiness assessment and master data management initiative",
+      confidenceLevel: "Moderate confidence"
+    });
+  }
+
+  return recs;
+}
+
+// ==================== SCENARIO TOOL ====================
+function renderScenarioOptions() {
+  const companyId = document.getElementById('scenarioCompany').value;
+  const company = portfolio.find(c => c.id === companyId);
+  if (!company) return;
+
+  const scenarios = [
+    {id:'ai',label:'🤖 Invest in AI',desc:'Deploy AI across operations'},
+    {id:'ops',label:'⚙️ Improve Operations',desc:'Streamline workflows and processes'},
+    {id:'tech',label:'💻 Modernize Technology',desc:'Upgrade legacy systems'},
+    {id:'market',label:'📈 Expand to New Market',desc:'Geographic or vertical expansion'},
+    {id:'shared',label:'🧩 Integrate Shared Services',desc:'Centralize support functions'},
+    {id:'delay',label:'⏸️ Delay Investment',desc:'Maintain current operations'},
+    {id:'dd',label:'🔍 Deeper Due Diligence',desc:'Extended evaluation period'}
+  ];
+
+  document.getElementById('scenarioOptions').innerHTML = scenarios.map(s => `
+    <button class="scenario-btn" onclick="runScenario('${s.id}')">
+      <div style="font-size:16px;margin-bottom:6px;">${s.label.split(' ')[0]}</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px;">${s.label.split(' ').slice(1).join(' ')}</div>
+      <div style="font-size:11px;color:var(--text-muted);font-weight:400;">${s.desc}</div>
+    </button>
+  `).join('');
+
+  document.getElementById('scenarioResult').classList.remove('show');
+}
+
+function runScenario(scenarioId) {
+  const companyId = document.getElementById('scenarioCompany').value;
+  const company = portfolio.find(c => c.id === companyId);
+  if (!company) return;
+
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  const scenarios = {
+    ai: { opp: 12, risk: -8, ai: 25, complexity: 'High', horizon: '6-12 months', dependency: 'Data infrastructure and change management', result: 'AI investment could significantly improve operational efficiency and decision-making, but requires solid data foundations first.' },
+    ops: { opp: 8, risk: -15, ai: 5, complexity: 'Medium', horizon: '3-6 months', dependency: 'Process documentation and team training', result: 'Operational improvements yield immediate risk reduction and cost savings with moderate implementation effort.' },
+    tech: { opp: 6, risk: -20, ai: 15, complexity: 'High', horizon: '9-18 months', dependency: 'Vendor selection and data migration', result: 'Technology modernization reduces long-term risk and creates platform for future AI initiatives.' },
+    market: { opp: 18, risk: 5, ai: 0, complexity: 'High', horizon: '12-24 months', dependency: 'Market research and capital allocation', result: 'Market expansion offers highest growth potential but increases complexity and capital requirements.' },
+    shared: { opp: 10, risk: -10, ai: 10, complexity: 'Medium', horizon: '6-12 months', dependency: 'Portfolio company alignment', result: 'Shared services reduce costs across portfolio but require standardization and cultural adaptation.' },
+    delay: { opp: -5, risk: 10, ai: -5, complexity: 'Low', horizon: '0 months', dependency: 'None', result: 'Delaying investment preserves capital but risks competitive disadvantage and operational deterioration.' },
+    dd: { opp: 0, risk: -5, ai: 0, complexity: 'Low', horizon: '1-3 months', dependency: 'Management cooperation', result: 'Extended due diligence reduces uncertainty and may reveal hidden risks or opportunities before capital commitment.' }
+  };
+
+  const s = scenarios[scenarioId];
+  const newOpp = Math.min(100, company.opportunityScore + s.opp);
+  const newRisk = Math.max(0, company.riskScore + s.risk);
+  const newAI = Math.min(100, company.aiReadinessScore + s.ai);
+
+  document.getElementById('scenarioResult').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-size:20px;font-weight:700;">📊 Scenario Result: ${company.name}</div>
+      <span class="badge badge-blue">Illustrative Only</span>
+    </div>
+    <div class="grid-3" style="margin-bottom:16px;">
+      <div class="metric-card">
+        <div class="metric-label">Opportunity Score</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+          <span style="font-size:12px;color:var(--text-muted);">${company.opportunityScore}</span>
+          <span style="color:var(--text-muted);">→</span>
+          <span style="font-size:20px;font-weight:700;color:${getScoreColor(newOpp)}">${newOpp}</span>
+          <span style="font-size:12px;color:${s.opp >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}">${s.opp >= 0 ? '+' : ''}${s.opp}</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Risk Score</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+          <span style="font-size:12px;color:var(--text-muted);">${company.riskScore}</span>
+          <span style="color:var(--text-muted);">→</span>
+          <span style="font-size:20px;font-weight:700;color:${getScoreColor(100-newRisk)}">${newRisk}</span>
+          <span style="font-size:12px;color:${s.risk <= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}">${s.risk >= 0 ? '+' : ''}${s.risk}</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">AI Readiness</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+          <span style="font-size:12px;color:var(--text-muted);">${company.aiReadinessScore}</span>
+          <span style="color:var(--text-muted);">→</span>
+          <span style="font-size:20px;font-weight:700;color:${getScoreColor(newAI)}">${newAI}</span>
+          <span style="font-size:12px;color:${s.ai >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}">${s.ai >= 0 ? '+' : ''}${s.ai}</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
+      <div><span style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Complexity</span><div style="font-size:14px;font-weight:600;margin-top:2px;">${s.complexity}</div></div>
+      <div><span style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Time Horizon</span><div style="font-size:14px;font-weight:600;margin-top:2px;">${s.horizon}</div></div>
+      <div><span style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Key Dependency</span><div style="font-size:14px;font-weight:600;margin-top:2px;">${s.dependency}</div></div>
+    </div>
+    <div style="padding:14px;background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border);">
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${s.result}</div>
+    </div>
+  `;
+  document.getElementById('scenarioResult').classList.add('show');
+}
+
+// ==================== ANALYZE COMPANY ====================
+function fillDemoData() {
+  const form = document.getElementById('companyForm');
+  form.name.value = 'Horizon Manufacturing Corp';
+  form.website.value = 'https://horizonmfg.example.com';
+  form.industry.value = 'Manufacturing & Industrial';
+  form.headquarters.value = 'Cleveland, OH';
+  form.revenueRange.value = '$50M – $100M';
+  form.employeeRange.value = '501 – 1,000';
+  form.yearsInBusiness.value = 22;
+  form.ownershipType.value = 'Family-owned';
+  form.investmentStatus.value = 'Mature / Stable';
+  form.objective.value = 'Operational efficiency';
+  form.reasonForAnalysis.value = 'Potential acquisition';
+  form.operationalConcerns.value = 'Aging equipment, high overtime costs, quality inconsistencies on third shift';
+  form.technologyConcerns.value = 'Legacy ERP system, no real-time production visibility, manual inventory tracking';
+}
+
+function startAnalysis(e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = {
+    name: form.name.value,
+    website: form.website.value,
+    industry: form.industry.value,
+    headquarters: form.headquarters.value,
+    revenueRange: form.revenueRange.value,
+    employeeRange: form.employeeRange.value,
+    yearsInBusiness: parseInt(form.yearsInBusiness.value) || 10,
+    ownershipType: form.ownershipType.value,
+    investmentStatus: form.investmentStatus.value,
+    objective: form.objective.value,
+    operationalConcerns: form.operationalConcerns.value,
+    technologyConcerns: form.technologyConcerns.value,
+    reasonForAnalysis: form.reasonForAnalysis.value
+  };
+
+  document.getElementById('analysisFormContainer').style.display = 'none';
+  document.getElementById('analysisProgress').style.display = 'block';
+  document.getElementById('analysisResults').style.display = 'none';
+
+  const steps = [
+    'Reviewing public company information...',
+    'Evaluating the business model...',
+    'Identifying operational signals...',
+    'Assessing technology maturity...',
+    'Estimating AI readiness...',
+    'Generating due-diligence questions...',
+    'Preparing executive recommendations...'
+  ];
+
+  const progressSteps = document.getElementById('progressSteps');
+  progressSteps.innerHTML = steps.map(() => '<div class="progress-step"></div>').join('');
+
+  let step = 0;
+  const interval = setInterval(() => {
+    if (step < steps.length) {
+      document.getElementById('progressText').textContent = steps[step];
+      document.querySelectorAll('.progress-step').forEach((el, i) => {
+        el.classList.toggle('active', i === step);
+        el.classList.toggle('complete', i < step);
+      });
+      document.getElementById('progressBar').style.width = ((step + 1) / steps.length * 100) + '%';
+      step++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('analysisProgress').style.display = 'none';
+        document.getElementById('analysisResults').style.display = 'block';
+        generateAnalysisResults(formData);
+      }, 500);
+    }
+  }, 600);
+}
+
+function generateAnalysisResults(data) {
+  // Deterministic scoring based on inputs
+  const industryScores = {
+    'Technology & Software': { opp: 85, risk: 35, tech: 30, ai: 75 },
+    'Healthcare & Life Sciences': { opp: 78, risk: 50, tech: 45, ai: 55 },
+    'Financial Services': { opp: 82, risk: 30, tech: 35, ai: 70 },
+    'Manufacturing & Industrial': { opp: 68, risk: 55, tech: 65, ai: 40 },
+    'Consumer Goods & Retail': { opp: 72, risk: 48, tech: 50, ai: 50 },
+    'Logistics & Transportation': { opp: 70, risk: 52, tech: 60, ai: 45 },
+    'Real Estate & Construction': { opp: 62, risk: 45, tech: 55, ai: 35 },
+    'Energy & Utilities': { opp: 60, risk: 58, tech: 60, ai: 38 },
+    'Professional Services': { opp: 75, risk: 32, tech: 40, ai: 60 },
+    'Food & Beverage': { opp: 74, risk: 42, tech: 50, ai: 48 },
+    'Education & Training': { opp: 65, risk: 38, tech: 45, ai: 52 },
+    'Media & Entertainment': { opp: 70, risk: 45, tech: 40, ai: 58 },
+    'Other': { opp: 65, risk: 50, tech: 55, ai: 45 }
+  };
+
+  const base = industryScores[data.industry] || industryScores['Other'];
+
+  // Adjust based on form inputs
+  let oppMod = 0, riskMod = 0, techMod = 0, aiMod = 0;
+
+  if (data.yearsInBusiness > 20) { oppMod += 3; riskMod -= 3; }
+  else if (data.yearsInBusiness < 5) { oppMod += 5; riskMod += 8; }
+
+  if (data.ownershipType === 'Founder-owned') { riskMod += 5; }
+  if (data.ownershipType === 'Publicly Traded') { oppMod += 2; riskMod -= 5; }
+
+  if (data.investmentStatus === 'Distressed / Turnaround') { oppMod -= 10; riskMod += 15; }
+  if (data.investmentStatus === 'Mature / Stable') { oppMod += 2; riskMod -= 5; }
+
+  if (data.objective === 'Technology modernization') { aiMod += 8; techMod -= 5; }
+  if (data.objective === 'Growth & expansion') { oppMod += 5; }
+  if (data.objective === 'Turnaround & stabilization') { riskMod += 5; }
+
+  if (data.operationalConcerns.length > 50) { riskMod += 5; }
+  if (data.technologyConcerns.length > 50) { techMod += 8; riskMod += 3; }
+
+  const opportunityScore = Math.min(100, Math.max(30, base.opp + oppMod + (Math.random() * 6 - 3)));
+  const riskScore = Math.min(100, Math.max(15, base.risk + riskMod + (Math.random() * 6 - 3)));
+  const technologyRiskScore = Math.min(100, Math.max(20, base.tech + techMod + (Math.random() * 6 - 3)));
+  const aiReadinessScore = Math.min(100, Math.max(20, base.ai + aiMod + (Math.random() * 6 - 3)));
+
+  const growthPotentialScore = Math.min(100, opportunityScore + (Math.random() * 10 - 5));
+  const efficiencyPotentialScore = Math.min(100, 100 - riskScore + (Math.random() * 10 - 5));
+  const portfolioFitScore = Math.min(100, 50 + (Math.random() * 30));
+  const integrationComplexityScore = Math.min(100, riskScore * 0.8 + (Math.random() * 10));
+
+  const company = {
+    id: 'analysis-' + Date.now(),
+    name: data.name,
+    website: data.website,
+    industry: data.industry,
+    headquarters: data.headquarters,
+    revenueRange: data.revenueRange,
+    employeeRange: data.employeeRange,
+    yearsInBusiness: data.yearsInBusiness,
+    ownershipType: data.ownershipType,
+    investmentStatus: data.investmentStatus,
+    objective: data.objective,
+    concerns: [data.operationalConcerns, data.technologyConcerns].filter(Boolean),
+    opportunityScore: Math.round(opportunityScore),
+    riskScore: Math.round(riskScore),
+    technologyRiskScore: Math.round(technologyRiskScore),
+    aiReadinessScore: Math.round(aiReadinessScore),
+    growthPotentialScore: Math.round(growthPotentialScore),
+    efficiencyPotentialScore: Math.round(efficiencyPotentialScore),
+    portfolioFitScore: Math.round(portfolioFitScore),
+    integrationComplexityScore: Math.round(integrationComplexityScore),
+    confidenceLevel: 'Moderate confidence',
+    evidenceSources: ['User-provided information', 'AI-generated inference'],
+    createdAt: new Date().toISOString().split('T')[0]
+  };
+
+  currentAnalysis = company;
+
+  // Generate dynamic content
+  generateStrengthsWeaknesses(company, data);
+  generateRisks(company, data);
+  generateOpportunities(company, data);
+  generateDueDiligence(company, data);
+  generateActions(company, data);
+  generateExecutiveSummary(company, data);
+
+  // Render results
+  document.getElementById('resultCompanyName').textContent = company.name;
+  document.getElementById('resultCompanyMeta').innerHTML = `${company.industry} · ${company.headquarters || 'N/A'} · ${company.revenueRange || 'N/A'} · ${company.employeeRange || 'N/A'} employees`;
+
+  const classification = company.opportunityScore >= 80 ? 'Attractive with strong fundamentals' :
+    company.opportunityScore >= 65 ? 'Attractive with operational improvement potential' :
+    company.opportunityScore >= 50 ? 'Moderate opportunity with conditions' : 'Requires deeper review';
+
+  document.getElementById('resultClassification').innerHTML = `Overall Opportunity Score: <span style="color:${getScoreColor(company.opportunityScore)}">${company.opportunityScore}/100</span>`;
+  document.getElementById('resultConfidence').innerHTML = `Classification: <strong>${classification}</strong> · Confidence: ${company.confidenceLevel}`;
+  document.getElementById('resultExplanation').textContent = `Based on ${data.industry} benchmarks, ${data.yearsInBusiness} years of operation, and the stated objective of "${data.objective}", this company shows ${company.opportunityScore >= 70 ? 'strong' : 'moderate'} investment potential with ${company.riskScore >= 50 ? 'notable' : 'manageable'} risk factors.`;
+
+  document.getElementById('overallScoreRing').innerHTML = renderScoreRing(company.opportunityScore, 140, 10);
+  document.getElementById('resultRiskBadge').innerHTML = getScoreBadge(100 - company.riskScore);
+  document.getElementById('resultAIReadinessBadge').innerHTML = getScoreBadge(company.aiReadinessScore);
+
+  // Score breakdown
+  document.getElementById('scoreBreakdown').innerHTML = [
+    {label:'Opportunity',score:company.opportunityScore},
+    {label:'Risk Level',score:100-company.riskScore},
+    {label:'AI Readiness',score:company.aiReadinessScore},
+    {label:'Growth Potential',score:company.growthPotentialScore}
+  ].map(s => `
+    <div class="card" style="text-align:center;">
+      <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">${s.label}</div>
+      <div style="font-size:32px;font-weight:800;color:${getScoreColor(s.score)}">${s.score}</div>
+      <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:${s.score}%;background:${getScoreColor(s.score)}"></div></div>
+    </div>
+  `).join('');
+
+  // Investment assessment
+  const invClass = company.opportunityScore >= 80 ? 'Strong opportunity' :
+    company.opportunityScore >= 65 ? 'Promising with conditions' :
+    company.opportunityScore >= 50 ? 'Requires deeper review' : 'High-risk opportunity';
+
+  document.getElementById('investmentAssessment').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <span class="badge ${company.opportunityScore >= 70 ? 'badge-emerald' : company.opportunityScore >= 50 ? 'badge-amber' : 'badge-red'}">${invClass}</span>
+      <span class="badge badge-blue">${data.reasonForAnalysis}</span>
+    </div>
+    <div class="grid-2" style="gap:12px;">
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Market Attractiveness</div>
+        <div style="font-size:14px;font-weight:600;">${company.opportunityScore >= 75 ? 'Strong' : company.opportunityScore >= 55 ? 'Moderate' : 'Challenging'}</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Scalability</div>
+        <div style="font-size:14px;font-weight:600;">${company.growthPotentialScore >= 70 ? 'High' : company.growthPotentialScore >= 50 ? 'Moderate' : 'Limited'}</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Competitive Position</div>
+        <div style="font-size:14px;font-weight:600;">${company.opportunityScore >= 70 ? 'Defensible' : company.opportunityScore >= 50 ? 'Developing' : 'Weak'}</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Business Durability</div>
+        <div style="font-size:14px;font-weight:600;">${company.yearsInBusiness > 15 ? 'Established' : company.yearsInBusiness > 5 ? 'Proven' : 'Early stage'}</div>
+      </div>
+    </div>
+  `;
+
+  // AI Readiness
+  const aiCategories = [
+    {name:'Data Readiness',score:Math.round(company.aiReadinessScore * 0.9),status:company.aiReadinessScore >= 60 ? 'Ready' : company.aiReadinessScore >= 40 ? 'Partially ready' : 'Early stage'},
+    {name:'Process Readiness',score:Math.round(company.aiReadinessScore * 0.85),status:company.aiReadinessScore >= 55 ? 'Ready' : company.aiReadinessScore >= 35 ? 'Partially ready' : 'Early stage'},
+    {name:'Technology Readiness',score:Math.round(100 - company.technologyRiskScore),status:company.technologyRiskScore <= 40 ? 'Ready' : company.technologyRiskScore <= 60 ? 'Partially ready' : 'Significant preparation required'},
+    {name:'Leadership Readiness',score:Math.round(company.aiReadinessScore * 0.8),status:company.aiReadinessScore >= 50 ? 'Partially ready' : 'Early stage'},
+    {name:'Workforce Readiness',score:Math.round(company.aiReadinessScore * 0.75),status:company.aiReadinessScore >= 55 ? 'Ready' : 'Partially ready'},
+    {name:'Financial Opportunity',score:Math.round(company.efficiencyPotentialScore),status:company.efficiencyPotentialScore >= 65 ? 'High' : 'Moderate'},
+    {name:'Implementation Complexity',score:Math.round(100 - company.integrationComplexityScore),status:company.integrationComplexityScore <= 45 ? 'Manageable' : 'Complex'}
+  ];
+
+  document.getElementById('aiReadinessSection').innerHTML = `
+    <div class="grid-2" style="gap:12px;">
+      ${aiCategories.map(cat => `
+        <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:13px;font-weight:600;">${cat.name}</span>
+            <span class="badge ${cat.score >= 60 ? 'badge-emerald' : cat.score >= 40 ? 'badge-amber' : 'badge-red'}">${cat.status}</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:${cat.score}%;background:${getScoreColor(cat.score)}"></div></div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Score: ${cat.score}/100</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // Portfolio Fit
+  document.getElementById('portfolioFitSection').innerHTML = `
+    <div style="padding:16px;background:var(--bg-secondary);border-radius:10px;margin-bottom:12px;">
+      <div style="font-size:14px;font-weight:600;margin-bottom:8px;">Preliminary Portfolio Fit Score: <span style="color:${getScoreColor(company.portfolioFitScore)}">${company.portfolioFitScore}/100</span></div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">
+        Based on industry profile, operational maturity, and technology infrastructure, this company shows ${company.portfolioFitScore >= 65 ? 'strong' : company.portfolioFitScore >= 45 ? 'moderate' : 'limited'} compatibility with a diversified portfolio.
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${company.portfolioFitScore}%;background:${getScoreColor(company.portfolioFitScore)}"></div></div>
+    </div>
+    <div style="padding:14px;background:rgba(59,130,246,0.06);border-radius:10px;border:1px solid rgba(59,130,246,0.15);">
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+        <strong style="color:var(--text-primary)">Portfolio fit requires comparison with existing holdings.</strong> Add this company to Portfolio View for a complete analysis against your current portfolio companies.
+      </div>
+      <button class="btn btn-primary mt-3" style="padding:10px 20px;font-size:13px;" onclick="addToPortfolioFromAnalysis()">➕ Add to Portfolio</button>
+    </div>
+  `;
+
+  // Save to reports
+  reports.push({...company, type: 'Company Analysis'});
+  saveToStorage();
+}
+
+function generateStrengthsWeaknesses(company, data) {
+  const strengths = [];
+  const weaknesses = [];
+
+  if (data.yearsInBusiness > 15) strengths.push("Established market presence with proven track record");
+  if (data.yearsInBusiness < 5) strengths.push("Agile organization with growth momentum");
+  if (data.ownershipType === 'Family-owned') strengths.push("Long-term orientation and stable ownership");
+  if (data.ownershipType === 'Private Equity') strengths.push("Professional management and growth capital access");
+  if (data.investmentStatus === 'Mature / Stable') strengths.push("Stable revenue base with predictable cash flows");
+  if (data.investmentStatus === 'Growth Stage') strengths.push("Strong growth trajectory with market expansion potential");
+  if (data.objective === 'Technology modernization') strengths.push("Leadership committed to operational improvement");
+  if (data.revenueRange && data.revenueRange.includes('100M')) strengths.push("Scale advantages and market position");
+
+  if (data.ownershipType === 'Founder-owned') weaknesses.push("Owner dependency in key decisions and relationships");
+  if (data.investmentStatus === 'Distressed / Turnaround') weaknesses.push("Financial stress may limit operational flexibility");
+  if (data.operationalConcerns.length > 20) weaknesses.push("Documented operational challenges requiring attention");
+  if (data.technologyConcerns.length > 20) weaknesses.push("Technology infrastructure gaps identified");
+  if (data.yearsInBusiness > 25) weaknesses.push("Potential organizational inertia and resistance to change");
+  if (!data.revenueRange) weaknesses.push("Limited financial visibility for assessment");
+
+  // Ensure minimum counts
+  while (strengths.length < 4) {
+    const extras = ["Specialized expertise in core market segment","Established customer relationships","Operational flexibility relative to larger competitors","Strong industry knowledge and talent retention"];
+    if (!strengths.includes(extras[strengths.length])) strengths.push(extras[strengths.length]);
+    else break;
+  }
+  while (weaknesses.length < 4) {
+    const extras = ["Limited digital transformation progress","Inconsistent process documentation","Geographic concentration risk","Competitive pressure from well-capitalized rivals"];
+    if (!weaknesses.includes(extras[weaknesses.length])) weaknesses.push(extras[weaknesses.length]);
+    else break;
+  }
+
+  company.strengths = strengths.slice(0, 6);
+  company.weaknesses = weaknesses.slice(0, 6);
+
+  document.getElementById('strengthsList').innerHTML = strengths.map(s => `
+    <li><span class="bullet" style="background:var(--accent-emerald);margin-top:7px;"></span>${s}</li>
+  `).join('');
+  document.getElementById('weaknessesList').innerHTML = weaknesses.map(w => `
+    <li><span class="bullet" style="background:var(--accent-amber);margin-top:7px;"></span>${w}</li>
+  `).join('');
+}
+
+function generateRisks(company, data) {
+  const opRisks = [];
+  const techRisks = [];
+
+  if (data.ownershipType === 'Founder-owned') {
+    opRisks.push({category:'Leadership dependency',level:'high',explanation:'Founder actively involved in daily operations and key relationships.',impact:'Significant disruption if founder exits without transition plan.',suggestedAction:'Document key relationships and develop succession plan.'});
+  }
+  if (data.operationalConcerns.toLowerCase().includes('equipment') || data.operationalConcerns.toLowerCase().includes('aging')) {
+    opRisks.push({category:'Workflow inefficiency',level:'medium',explanation:'Aging equipment may cause production delays and quality inconsistencies.',impact:'Reduced output, higher maintenance costs, customer dissatisfaction.',suggestedAction:'Develop capital replacement plan with phased implementation.'});
+  }
+  if (data.operationalConcerns.toLowerCase().includes('overtime') || data.operationalConcerns.toLowerCase().includes('labor')) {
+    opRisks.push({category:'Staffing',level:'medium',explanation:'High overtime indicates potential understaffing or poor workforce planning.',impact:'Burnout, turnover, safety incidents, rising labor costs.',suggestedAction:'Conduct workforce analysis and optimize scheduling.'});
+  }
+  if (data.operationalConcerns.toLowerCase().includes('quality')) {
+    opRisks.push({category:'Quality control',level:'medium',explanation:'Quality inconsistencies suggest process control gaps.',impact:'Customer returns, warranty costs, reputation damage.',suggestedAction:'Implement statistical process control and quality management system.'});
+  }
+
+  if (data.technologyConcerns.toLowerCase().includes('legacy') || data.technologyConcerns.toLowerCase().includes('erp')) {
+    techRisks.push({category:'Legacy systems',level:'high',explanation:'Legacy ERP limits integration, reporting, and scalability.',impact:'Security vulnerabilities, rising maintenance costs, competitive disadvantage.',suggestedAction:'Begin ERP modernization evaluation and vendor selection.'});
+  }
+  if (data.technologyConcerns.toLowerCase().includes('manual') || data.technologyConcerns.toLowerCase().includes('visibility')) {
+    techRisks.push({category:'Limited automation',level:'medium',explanation:'Manual processes and limited real-time visibility reduce operational responsiveness.',impact:'Delayed decisions, inefficiency, inability to scale.',suggestedAction:'Deploy real-time monitoring and automated data collection.'});
+  }
+  if (data.technologyConcerns.toLowerCase().includes('inventory') || data.technologyConcerns.toLowerCase().includes('tracking')) {
+    techRisks.push({category:'Poor reporting visibility',level:'medium',explanation:'Manual inventory tracking creates accuracy and timing issues.',impact:'Stockouts, excess inventory, working capital inefficiency.',suggestedAction:'Implement automated inventory management with barcode/RFID.'});
+  }
+
+  // Ensure minimums
+  if (opRisks.length < 2) {
+    opRisks.push({category:'Documentation',level:'low',explanation:'Process documentation may be informal or outdated.',impact:'Knowledge loss, training inefficiency, inconsistent execution.',suggestedAction:'Standardize and document core operational processes.'});
+  }
+  if (techRisks.length < 2) {
+    techRisks.push({category:'Cybersecurity exposure',level:'medium',explanation:'Technology infrastructure may lack formal security program.',impact:'Data breach risk, regulatory non-compliance, operational disruption.',suggestedAction:'Conduct cybersecurity assessment and implement baseline protections.'});
+  }
+
+  company.operationalRisks = opRisks;
+  company.technologyRisks = techRisks;
+
+  document.getElementById('operationalRisks').innerHTML = opRisks.map(r => `
+    <div class="risk-item">
+      <div class="risk-item-header">
+        <span class="risk-item-title">${r.category}</span>
+        <span class="risk-item-level ${r.level === 'high' ? 'badge-red' : r.level === 'medium' ? 'badge-amber' : 'badge-emerald'}">${r.level.toUpperCase()}</span>
+      </div>
+      <div class="risk-item-desc">
+        <strong>Issue:</strong> ${r.explanation}<br>
+        <strong>Impact:</strong> ${r.impact}<br>
+        <strong>Action:</strong> ${r.suggestedAction}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('technologyRisks').innerHTML = techRisks.map(r => `
+    <div class="risk-item">
+      <div class="risk-item-header">
+        <span class="risk-item-title">${r.category}</span>
+        <span class="risk-item-level ${r.level === 'high' ? 'badge-red' : r.level === 'medium' ? 'badge-amber' : 'badge-emerald'}">${r.level.toUpperCase()}</span>
+      </div>
+      <div class="risk-item-desc">
+        <strong>Issue:</strong> ${r.explanation}<br>
+        <strong>Impact:</strong> ${r.impact}<br>
+        <strong>Action:</strong> ${r.suggestedAction}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('techRiskScore').innerHTML = `Technology Risk Score: <span style="color:${getScoreColor(100-company.technologyRiskScore)}">${company.technologyRiskScore}/100</span>`;
+}
+
+function generateOpportunities(company, data) {
+  const growth = [];
+  const efficiency = [];
+
+  if (data.objective === 'Growth & expansion' || data.objective === 'Market consolidation') {
+    growth.push({category:'Market expansion',description:'Expand geographic or vertical market presence',potentialImpact:'High',implementationDifficulty:'high',priority:'long-term',reasoning:'Aligns with stated growth objective and leverages existing capabilities.'});
+  }
+  if (data.industry === 'Consumer Goods & Retail' || data.industry === 'Food & Beverage') {
+    growth.push({category:'Digital channels',description:'Develop direct-to-consumer e-commerce channel',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term',reasoning:'Reduces channel dependency and improves margin capture.'});
+  }
+  if (data.industry === 'Technology & Software' || data.industry === 'Professional Services') {
+    growth.push({category:'Product expansion',description:'Add complementary product or service lines',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term',reasoning:'Low marginal cost to serve existing customer base.'});
+  }
+
+  growth.push({category:'Customer retention',description:'Implement customer success and loyalty programs',potentialImpact:'Moderate',implementationDifficulty:'low',priority:'immediate',reasoning:'Low-cost initiative with measurable retention impact.'});
+  growth.push({category:'Sales automation',description:'Deploy CRM and automated lead nurturing',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term',reasoning:'Improves conversion rates and sales team productivity.'});
+
+  if (data.technologyConcerns.length > 20) {
+    efficiency.push({category:'Technology modernization',description:'Upgrade core systems and automate manual processes',potentialImpact:'High',implementationDifficulty:'high',priority:'short-term'});
+  }
+  if (data.operationalConcerns.toLowerCase().includes('overtime') || data.operationalConcerns.toLowerCase().includes('labor')) {
+    efficiency.push({category:'Labor efficiency',description:'Optimize workforce scheduling and automate routine tasks',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term'});
+  }
+  efficiency.push({category:'Reporting',description:'Implement real-time executive dashboards and automated reporting',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term'});
+  efficiency.push({category:'Customer service',description:'Deploy AI chatbot and self-service portal',potentialImpact:'Moderate',implementationDifficulty:'low',priority:'immediate'});
+  efficiency.push({category:'Finance',description:'Automate accounts payable, receivable, and reconciliation',potentialImpact:'High',implementationDifficulty:'medium',priority:'short-term'});
+
+  company.growthOpportunities = growth;
+  company.efficiencyOpportunities = efficiency;
+
+  document.getElementById('growthOpportunities').innerHTML = growth.map(g => `
+    <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:14px;font-weight:600;">${g.category}</span>
+        <span class="badge ${g.potentialImpact === 'High' ? 'badge-emerald' : 'badge-amber'}">${g.potentialImpact} Impact</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:6px;">${g.description}</div>
+      <div style="font-size:12px;color:var(--text-muted);">Difficulty: ${g.implementationDifficulty} · Priority: ${g.priority} · ${g.reasoning}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('efficiencyOpportunities').innerHTML = efficiency.map(e => `
+    <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:14px;font-weight:600;">${e.category}</span>
+        <span class="badge ${e.potentialImpact === 'High' ? 'badge-emerald' : 'badge-amber'}">${e.potentialImpact} Impact</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">${e.description}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Difficulty: ${e.implementationDifficulty} · Priority: ${e.priority}</div>
+    </div>
+  `).join('');
+
+  // Best AI opportunities
+  const bestAI = efficiency.slice(0, 3);
+  document.getElementById('bestAIOpportunities').innerHTML = bestAI.map((e, i) => `
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;${i < bestAI.length-1 ? 'border-bottom:1px solid var(--border);' : ''}">
+      <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-cyan));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">${i+1}</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;">${e.category}</div>
+        <div style="font-size:12px;color:var(--text-secondary);">${e.description}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function generateDueDiligence(company, data) {
+  const categories = [
+    {category:'Financial',questions:[`What is the 3-year revenue and EBITDA trend for ${data.name}?`,`Are there any customer concentration risks above 20% of revenue?`,`What is the working capital requirement and cash conversion cycle?`,`Are there any outstanding tax liabilities or audit findings?`]},
+    {category:'Operational',questions:[`What is the current capacity utilization and bottleneck analysis?`,`Are there any pending OSHA, environmental, or regulatory violations?`,`What is the employee turnover rate and key-person dependency?`,`Describe the current quality management and defect tracking process.`]},
+    {category:'Technology',questions:[`What is the current technology stack and vendor contract status?`,`Are there any custom software applications without documentation?`,`What cybersecurity measures and incident response plans exist?`,`What is the data backup, recovery, and business continuity plan?`]},
+    {category:'Legal',questions:[`Are there any pending litigation, claims, or regulatory actions?`,`What intellectual property protections exist for core products/services?`,`Are all required licenses, permits, and registrations current?`,`Review all material contracts for change-of-control provisions.`]},
+    {category:'Leadership',questions:[`What is the organizational structure and depth of management team?`,`Are there employment contracts and non-compete agreements in place?`,`What is the board composition and governance structure?`,`Describe the succession plan for key leadership roles.`]},
+    {category:'Customers',questions:[`What is the customer retention rate and Net Promoter Score?`,`Are there any significant customer disputes or contractual issues?`,`What is the sales pipeline and forecast accuracy history?`,`Describe the customer acquisition cost and lifetime value analysis.`]},
+    {category:'AI and Data',questions:[`What data assets exist and how are they governed?`,`Are there any data privacy compliance frameworks (GDPR, CCPA)?`,`What is the current state of process documentation and standardization?`,`Describe any existing automation or AI initiatives and their results.`]}
+  ];
+
+  company.dueDiligenceQuestions = categories;
+
+  document.getElementById('dueDiligenceSection').innerHTML = categories.map((cat, ci) => `
+    <div class="dd-category">
+      <div class="dd-category-header" onclick="toggleDD(${ci})">
+        <span class="dd-category-title">${cat.category}</span>
+        <span class="dd-category-count">${cat.questions.length} questions</span>
+      </div>
+      <div class="dd-questions" id="dd-cat-${ci}">
+        ${cat.questions.map((q, qi) => `
+          <div class="dd-question">
+            <div class="dd-checkbox" id="dd-check-${ci}-${qi}" onclick="toggleDDCheck(${ci},${qi})"></div>
+            <div class="dd-q-text" id="dd-text-${ci}-${qi}">${q}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleDD(catIndex) {
+  document.getElementById(`dd-cat-${catIndex}`).classList.toggle('open');
+}
+
+function toggleDDCheck(ci, qi) {
+  const check = document.getElementById(`dd-check-${ci}-${qi}`);
+  const text = document.getElementById(`dd-text-${ci}-${qi}`);
+  check.classList.toggle('checked');
+  check.innerHTML = check.classList.contains('checked') ? '✓' : '';
+  text.classList.toggle('answered');
+}
+
+function copyAllDD() {
+  if (!currentAnalysis) return;
+  let text = `Due Diligence Questions — ${currentAnalysis.name}\n\n`;
+  currentAnalysis.dueDiligenceQuestions.forEach(cat => {
+    text += `${cat.category}\n`;
+    cat.questions.forEach(q => text += `• ${q}\n`);
+    text += `\n`;
+  });
+  navigator.clipboard.writeText(text).then(() => alert('Due diligence questions copied to clipboard!'));
+}
+
+function generateActions(company, data) {
+  const actions = [
+    {timeframe:'immediate',action:`Request 3-year financial statements and customer concentration analysis for ${data.name}`,priority:'critical',owner:'Investment Team',expectedOutcome:'Validate revenue quality and identify concentration risk',dependency:'Company cooperation',decisionRequired:'Proceed with preliminary due diligence?'},
+    {timeframe:'30-days',action:'Conduct management interviews and operational site visit',priority:'high',owner:'Operating Partner',expectedOutcome:'Validate operational claims and assess management quality',dependency:'Management availability',decisionRequired:'Is current leadership capable of executing the business plan?'},
+    {timeframe:'60-days',action:'Engage technology consultant for systems assessment and modernization roadmap',priority:'high',owner:'Technology Advisor',expectedOutcome:'Define technology investment requirements and timeline',dependency:'Access to current systems',decisionRequired:'Budget approval for technology modernization?'},
+    {timeframe:'90-days',action:'Develop integration and value-creation plan with 12-month milestones',priority:'medium',owner:'Portfolio Operations',expectedOutcome:'Clear roadmap for post-acquisition improvements',dependency:'Due diligence findings',decisionRequired:'Final investment approval and capital allocation?'}
+  ];
+
+  company.recommendedActions = actions;
+
+  const timeframes = {immediate:'Immediate', '30-days':'Next 30 Days', '60-days':'Next 60 Days', '90-days':'Next 90 Days'};
+  const colors = {immediate:'var(--accent-red)', '30-days':'var(--accent-amber)', '60-days':'var(--accent-blue)', '90-days':'var(--accent-emerald)'};
+
+  document.getElementById('recommendedActions').innerHTML = actions.map(a => `
+    <div class="action-item" style="border-left-color:${colors[a.timeframe]};">
+      <div class="action-timeframe" style="color:${colors[a.timeframe]};">${timeframes[a.timeframe]}</div>
+      <div class="action-content">
+        <div class="action-title">${a.action}</div>
+        <div class="action-meta">
+          <strong>Priority:</strong> ${a.priority} · <strong>Owner:</strong> ${a.owner} · <strong>Outcome:</strong> ${a.expectedOutcome}<br>
+          <strong>Dependency:</strong> ${a.dependency} · <strong>Decision:</strong> ${a.decisionRequired}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function generateExecutiveSummary(company, data) {
+  const strongestOpp = company.growthOpportunities[0]?.category || 'Market expansion';
+  const mostSeriousRisk = company.operationalRisks[0]?.category || 'Operational risk';
+  const bestEff = company.efficiencyOpportunities[0]?.category || 'Process automation';
+  const aiConclusion = company.aiReadinessScore >= 60 ? 'ready for targeted AI implementation' : company.aiReadinessScore >= 40 ? 'partially ready for AI with foundational investments required' : 'not yet ready for AI; focus on data and process foundations first';
+  const recDecision = company.opportunityScore >= 75 && company.riskScore < 50 ? 'Proceed with due diligence and consider investment' : company.opportunityScore >= 60 ? 'Proceed with caution; address identified risks before commitment' : 'Conduct deeper due diligence or consider alternative opportunities';
+
+  const summary = `${data.name} presents a ${company.opportunityScore >= 70 ? 'strong' : 'moderate'} investment opportunity (Score: ${company.opportunityScore}/100) in the ${data.industry} sector. The company has ${data.yearsInBusiness} years of operating history with ${data.ownershipType} ownership structure. 
+
+The strongest opportunity lies in ${strongestOpp}, while the most serious risk is ${mostSeriousRisk.toLowerCase()}. AI readiness is ${aiConclusion}. The best efficiency opportunity is ${bestEff.toLowerCase()}.
+
+Key due-diligence concern: Validate financial performance and assess management depth before proceeding. Recommended decision: ${recDecision}.`;
+
+  company.executiveSummary = summary;
+  document.getElementById('executiveSummary').innerHTML = summary.replace(/\n/g, '<br>');
+}
+
+function resetAnalysis() {
+  document.getElementById('analysisFormContainer').style.display = 'block';
+  document.getElementById('analysisProgress').style.display = 'none';
+  document.getElementById('analysisResults').style.display = 'none';
+  document.getElementById('companyForm').reset();
+  currentAnalysis = null;
+}
+
+function copySummary() {
+  if (!currentAnalysis) return;
+  navigator.clipboard.writeText(currentAnalysis.executiveSummary).then(() => alert('Executive summary copied to clipboard!'));
+}
+
+function addToPortfolioFromAnalysis() {
+  if (!currentAnalysis) return;
+  if (!portfolio.find(c => c.id === currentAnalysis.id)) {
+    portfolio.push(currentAnalysis);
+    saveToStorage();
+    alert(`${currentAnalysis.name} added to portfolio!`);
+    switchTab('portfolio');
+  } else {
+    alert(`${currentAnalysis.name} is already in your portfolio.`);
+  }
+}
+
+// ==================== COMPANY MODAL ====================
+function openCompanyModal(companyId) {
+  const company = portfolio.find(c => c.id === companyId) || demoCompanies.find(c => c.id === companyId);
+  if (!company) return;
+
+  document.getElementById('modalTitle').textContent = company.name;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="display:flex;gap:20px;margin-bottom:24px;flex-wrap:wrap;">
+      <div class="score-ring" style="width:100px;height:100px;">
+        <svg width="100" height="100"><circle class="score-ring-bg" cx="50" cy="50" r="42" stroke-width="8"/>
+          <circle class="score-ring-fill" cx="50" cy="50" r="42" stroke-width="8" stroke="${getScoreColor(company.opportunityScore)}"
+            stroke-dasharray="${2*Math.PI*42}" stroke-dashoffset="${2*Math.PI*42 - (company.opportunityScore/100)*2*Math.PI*42}"/></svg>
+        <div style="position:absolute;text-align:center;"><div style="font-size:22px;font-weight:800;color:${getScoreColor(company.opportunityScore)}">${company.opportunityScore}</div><div style="font-size:10px;color:var(--text-muted);font-weight:600;">Opp</div></div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">${company.industry} · ${company.headquarters || 'N/A'} · ${company.revenueRange || 'N/A'}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+          ${getScoreBadge(100-company.riskScore)}
+          ${getScoreBadge(company.aiReadinessScore)}
+          ${getPriorityBadge(getPriorityLabel(company))}
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${company.executiveSummary?.substring(0, 300) || 'No summary available.'}...</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:12px;margin-bottom:20px;">
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">AI Readiness</div>
+        <div style="font-size:20px;font-weight:700;color:${getScoreColor(company.aiReadinessScore)}">${company.aiReadinessScore}/100</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Technology Risk</div>
+        <div style="font-size:20px;font-weight:700;color:${getScoreColor(100-company.technologyRiskScore)}">${company.technologyRiskScore}/100</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Growth Potential</div>
+        <div style="font-size:20px;font-weight:700;color:${getScoreColor(company.growthPotentialScore)}">${company.growthPotentialScore}/100</div>
+      </div>
+      <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;">
+        <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Efficiency Potential</div>
+        <div style="font-size:20px;font-weight:700;color:${getScoreColor(company.efficiencyPotentialScore)}">${company.efficiencyPotentialScore}/100</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Strengths</div>
+      <ul class="styled-list">${(company.strengths || []).map(s => `<li><span class="bullet" style="background:var(--accent-emerald);margin-top:7px;"></span>${s}</li>`).join('')}</ul>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Key Risks</div>
+      ${(company.operationalRisks || []).slice(0, 2).map(r => `
+        <div class="risk-item" style="margin-bottom:8px;padding:12px;">
+          <div class="risk-item-header"><span class="risk-item-title">${r.category}</span><span class="risk-item-level ${r.level === 'high' ? 'badge-red' : 'badge-amber'}">${r.level.toUpperCase()}</span></div>
+          <div class="risk-item-desc" style="font-size:12px;">${r.explanation}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="addToPortfolioFromModal('${company.id}')">➕ Add to Portfolio</button>
+      <button class="btn btn-secondary" onclick="closeCompanyModal()">Close</button>
+    </div>
+  `;
+
+  document.getElementById('companyModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function addToPortfolioFromModal(companyId) {
+  const company = portfolio.find(c => c.id === companyId) || demoCompanies.find(c => c.id === companyId);
+  if (!company) return;
+  if (!portfolio.find(c => c.id === companyId)) {
+    portfolio.push(company);
+    saveToStorage();
+    alert(`${company.name} added to portfolio!`);
+    closeCompanyModal();
+    switchTab('portfolio');
+  } else {
+    alert(`${company.name} is already in your portfolio.`);
+  }
+}
+
+function closeCompanyModal() {
+  document.getElementById('companyModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ==================== REPORTS ====================
+function renderReports() {
+  const list = document.getElementById('reportsList');
+  if (!reports.length) {
+    list.innerHTML = `
+      <div class="card" style="text-align:center;padding:60px 24px;">
+        <div style="font-size:48px;margin-bottom:16px;">📂</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">No reports saved yet</div>
+        <div style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;">Analyze a company to generate your first report. Reports are saved in your browser.</div>
+        <button class="btn btn-primary" onclick="switchTab('analyze')">Analyze a Company</button>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = `
+    <div class="card">
+      <table class="data-table">
+        <tr><th>Report</th><th>Type</th><th>Date</th><th>Score</th><th>Actions</th></tr>
+        ${reports.map((r, i) => `
+          <tr>
+            <td><strong>${r.name}</strong></td>
+            <td><span class="badge badge-blue">${r.type}</span></td>
+            <td>${r.createdAt}</td>
+            <td><span style="color:${getScoreColor(r.opportunityScore)};font-weight:700">${r.opportunityScore}</span></td>
+            <td>
+              <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="viewReport(${i})">View</button>
+              <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="deleteReport(${i})">🗑️</button>
+            </td>
+          </tr>
+        `).join('')}
+      </table>
+    </div>
+  `;
+}
+
+function viewReport(index) {
+  const report = reports[index];
+  if (!report) return;
+  currentAnalysis = report;
+  switchTab('analyze');
+  document.getElementById('analysisFormContainer').style.display = 'none';
+  document.getElementById('analysisProgress').style.display = 'none';
+  document.getElementById('analysisResults').style.display = 'block';
+
+  // Re-render all sections
+  document.getElementById('resultCompanyName').textContent = report.name;
+  document.getElementById('resultCompanyMeta').innerHTML = `${report.industry} · ${report.headquarters || 'N/A'} · ${report.revenueRange || 'N/A'}`;
+  document.getElementById('resultClassification').innerHTML = `Overall Opportunity Score: <span style="color:${getScoreColor(report.opportunityScore)}">${report.opportunityScore}/100</span>`;
+  document.getElementById('resultConfidence').innerHTML = `Confidence: ${report.confidenceLevel}`;
+  document.getElementById('resultExplanation').textContent = report.executiveSummary?.substring(0, 200) + '...' || '';
+  document.getElementById('overallScoreRing').innerHTML = renderScoreRing(report.opportunityScore, 140, 10);
+  document.getElementById('resultRiskBadge').innerHTML = getScoreBadge(100 - report.riskScore);
+  document.getElementById('resultAIReadinessBadge').innerHTML = getScoreBadge(report.aiReadinessScore);
+
+  document.getElementById('scoreBreakdown').innerHTML = [
+    {label:'Opportunity',score:report.opportunityScore},
+    {label:'Risk Level',score:100-report.riskScore},
+    {label:'AI Readiness',score:report.aiReadinessScore},
+    {label:'Growth Potential',score:report.growthPotentialScore}
+  ].map(s => `
+    <div class="card" style="text-align:center;">
+      <div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">${s.label}</div>
+      <div style="font-size:32px;font-weight:800;color:${getScoreColor(s.score)}">${s.score}</div>
+      <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:${s.score}%;background:${getScoreColor(s.score)}"></div></div>
+    </div>
+  `).join('');
+
+  document.getElementById('strengthsList').innerHTML = (report.strengths || []).map(s => `<li><span class="bullet" style="background:var(--accent-emerald);margin-top:7px;"></span>${s}</li>`).join('');
+  document.getElementById('weaknessesList').innerHTML = (report.weaknesses || []).map(w => `<li><span class="bullet" style="background:var(--accent-amber);margin-top:7px;"></span>${w}</li>`).join('');
+  document.getElementById('operationalRisks').innerHTML = (report.operationalRisks || []).map(r => `
+    <div class="risk-item">
+      <div class="risk-item-header"><span class="risk-item-title">${r.category}</span><span class="risk-item-level ${r.level === 'high' ? 'badge-red' : r.level === 'medium' ? 'badge-amber' : 'badge-emerald'}">${r.level.toUpperCase()}</span></div>
+      <div class="risk-item-desc"><strong>Issue:</strong> ${r.explanation}<br><strong>Impact:</strong> ${r.impact}<br><strong>Action:</strong> ${r.suggestedAction}</div>
+    </div>
+  `).join('');
+  document.getElementById('technologyRisks').innerHTML = (report.technologyRisks || []).map(r => `
+    <div class="risk-item">
+      <div class="risk-item-header"><span class="risk-item-title">${r.category}</span><span class="risk-item-level ${r.level === 'high' ? 'badge-red' : r.level === 'medium' ? 'badge-amber' : 'badge-emerald'}">${r.level.toUpperCase()}</span></div>
+      <div class="risk-item-desc"><strong>Issue:</strong> ${r.explanation}<br><strong>Impact:</strong> ${r.impact}<br><strong>Action:</strong> ${r.suggestedAction}</div>
+    </div>
+  `).join('');
+  document.getElementById('techRiskScore').innerHTML = `Technology Risk Score: <span style="color:${getScoreColor(100-report.technologyRiskScore)}">${report.technologyRiskScore}/100</span>`;
+  document.getElementById('executiveSummary').innerHTML = (report.executiveSummary || '').replace(/\n/g, '<br>');
+
+  // Simplified re-renders for other sections
+  document.getElementById('growthOpportunities').innerHTML = (report.growthOpportunities || []).map(g => `
+    <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:14px;font-weight:600;">${g.category}</span>
+        <span class="badge ${g.potentialImpact === 'High' ? 'badge-emerald' : 'badge-amber'}">${g.potentialImpact} Impact</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:6px;">${g.description}</div>
+      <div style="font-size:12px;color:var(--text-muted);">Difficulty: ${g.implementationDifficulty} · Priority: ${g.priority}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('efficiencyOpportunities').innerHTML = (report.efficiencyOpportunities || []).map(e => `
+    <div style="padding:14px;background:var(--bg-secondary);border-radius:10px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:14px;font-weight:600;">${e.category}</span>
+        <span class="badge ${e.potentialImpact === 'High' ? 'badge-emerald' : 'badge-amber'}">${e.potentialImpact} Impact</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">${e.description}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('recommendedActions').innerHTML = (report.recommendedActions || []).map(a => `
+    <div class="action-item" style="border-left-color:var(--accent-blue);">
+      <div class="action-timeframe" style="color:var(--accent-blue);">${a.timeframe === 'immediate' ? 'Immediate' : 'Next ' + a.timeframe}</div>
+      <div class="action-content">
+        <div class="action-title">${a.action}</div>
+        <div class="action-meta"><strong>Priority:</strong> ${a.priority} · <strong>Owner:</strong> ${a.owner}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('portfolioFitSection').innerHTML = `
+    <div style="padding:16px;background:var(--bg-secondary);border-radius:10px;margin-bottom:12px;">
+      <div style="font-size:14px;font-weight:600;margin-bottom:8px;">Portfolio Fit Score: <span style="color:${getScoreColor(report.portfolioFitScore)}">${report.portfolioFitScore}/100</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${report.portfolioFitScore}%;background:${getScoreColor(report.portfolioFitScore)}"></div></div>
+    </div>
+    <button class="btn btn-primary" onclick="addToPortfolioFromAnalysis()">➕ Add to Portfolio</button>
+  `;
+
+  generateDueDiligence(report, {name: report.name});
+}
+
+function deleteReport(index) {
+  reports.splice(index, 1);
+  saveToStorage();
+  renderReports();
+}
+
+// ==================== STORAGE ====================
+function saveToStorage() {
+  try {
+    localStorage.setItem('pi_portfolio', JSON.stringify(portfolio.map(c => c.id)));
+    localStorage.setItem('pi_reports', JSON.stringify(reports));
+  } catch(e) {}
+}
+
+function loadFromStorage() {
+  try {
+    const savedReports = localStorage.getItem('pi_reports');
+    if (savedReports) {
+      reports = JSON.parse(savedReports);
+    }
+  } catch(e) {}
+}
+
+function loadDemoPortfolio() {
+  portfolio = [...demoCompanies];
+  saveToStorage();
+  if (document.getElementById('dashboard').classList.contains('active')) renderDashboard();
+  if (document.getElementById('portfolio').classList.contains('active')) renderPortfolio();
+  alert('Demonstration portfolio loaded with 6 companies!');
+}
+
+// ==================== INIT ====================
+window.addEventListener('DOMContentLoaded', () => {
+  loadFromStorage();
+  renderDashboard();
+});
+</script>
+</body>
+</html>
